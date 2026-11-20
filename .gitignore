@@ -1,0 +1,4 @@
+.DS_Store
+
+# Large source videos are stored locally.
+rawdata/video/
