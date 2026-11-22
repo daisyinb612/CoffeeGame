@@ -1,0 +1,40 @@
+# 任务
+只根据输入音频，列出确实听到的语音和显著声音事件。不要借助视频画面、场景常识或操作流程猜声音来源。示例只展示格式，不代表输入音频。
+
+# 分段
+按声音本身的起止时间分段。语音按完整的一句话或短语分段；机械声、水声等按一次连续声响分段。不同声音可在时间上重叠，不能为了对齐画面动作而修改边界。持续背景声只有在明显变化或对理解内容有用时才记录。
+
+# 每个事件字段
+- start_time / end_time：相对本段音频开头的 MM:SS 或 MM:SS.s。
+- kind：只能是 speech、sound、music。
+- description：用中文写实际听到的声音特征；可描述响度、节奏、持续或重复。声音来源不确定时只写声学特征，不猜设备或人物身份。
+- transcript：speech 填听清楚的原话，听不清的部分用“[听不清]”；sound 和 music 填 null。不要替说话者补全句子或改写意思。
+- speaker：speech 可用“说话人1”等标签区分声音；无法区分或非语音填 null。不要根据声音推断姓名或画面人物身份。
+- uncertain：时间、说话内容或声音来源有明显疑问时填 true。
+
+# 输出
+只输出有效 JSON，顶层只有 events。无可辨认事件就返回 {"events": []}。不要 Markdown、画面描述、动作分析或英文解释。事件按开始时间排序，时间不得超出输入音频长度。
+
+# 格式示例（虚构，不得复制到结果）
+{
+  "events": [
+    {
+      "start_time": "00:00",
+      "end_time": "00:01.5",
+      "kind": "sound",
+      "description": "一声短促的关门撞击声，随后有轻微回响。",
+      "transcript": null,
+      "speaker": null,
+      "uncertain": false
+    },
+    {
+      "start_time": "00:02",
+      "end_time": "00:04",
+      "kind": "speech",
+      "description": "一名说话者用正常音量说出一句短语。",
+      "transcript": "请进。",
+      "speaker": "说话人1",
+      "uncertain": false
+    }
+  ]
+}

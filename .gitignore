@@ -1,0 +1,12 @@
+config.local.json
+config.gpt.local.json
+config.google.local.json
+__pycache__/
+*.upload.json
+*.upload_session.json
+/demo/media/
+
+.DS_Store
+/test/
+/source/*
+!/source/README.md

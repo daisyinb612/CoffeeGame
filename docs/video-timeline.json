@@ -1,0 +1,1406 @@
+{
+  "source_filename": "冰美式第一人称视频.MP4",
+  "duration_seconds": 600.0,
+  "segments": [
+    {
+      "id": "S1",
+      "start_seconds": 0,
+      "end_seconds": 5,
+      "action": "操作者抬起戴表的手腕，另一只手的指尖移到表面。屏幕先显示彩色图标，随后切换到带浅色长条按钮的深色界面；接着手腕下移，表面部分出框。看不清是否按下了长条按钮。",
+      "uncertain": true
+    },
+    {
+      "id": "S2",
+      "start_seconds": 5,
+      "end_seconds": 8,
+      "action": "镜头从咖啡机转向灰门和三脚架，再扫回吧台，重新对准咖啡机。未见明确的物品操作。",
+      "uncertain": false
+    },
+    {
+      "id": "S3",
+      "start_seconds": 8,
+      "end_seconds": 15,
+      "action": "镜头持续对着咖啡机和上方层架，构图略有变化；未见手进入操作区，也未见台面物品被移动。",
+      "uncertain": false
+    },
+    {
+      "id": "S4",
+      "start_seconds": 15,
+      "end_seconds": 18,
+      "action": "镜头向左扫过白色设备，再转到窗边，靠近柜子并俯向柜门。",
+      "uncertain": false
+    },
+    {
+      "id": "S5",
+      "start_seconds": 18,
+      "end_seconds": 20,
+      "action": "操作者抓住玻璃柜门的竖边框，把门沿轨道向左滑开，露出右侧柜格。",
+      "uncertain": false
+    },
+    {
+      "id": "S6",
+      "start_seconds": 20,
+      "end_seconds": 22,
+      "action": "操作者把手伸到柜内下层的透明杯旁；随后一只透明直筒杯已被握在柜外、出现在镜头左下方。杯子越过柜门轨道的瞬间没有拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S7",
+      "start_seconds": 22,
+      "end_seconds": 23,
+      "action": "戴表的手抓住竖边框，将滑门往原开口方向拨回；是否完全合拢看不清。",
+      "uncertain": true
+    },
+    {
+      "id": "S8",
+      "start_seconds": 23,
+      "end_seconds": 25,
+      "action": "操作者手持玻璃杯移到白色设备前，随后双手扶住杯身。最后一帧仍可见双手拿着杯子，未见松手放下。",
+      "uncertain": false
+    },
+    {
+      "id": "S9",
+      "start_seconds": 25,
+      "end_seconds": 28,
+      "action": "镜头沿台面向右移动，越过咖啡机后靠近磨豆机。杯子不再出现在取景范围内，未见磨豆机被操作。",
+      "uncertain": false
+    },
+    {
+      "id": "S10",
+      "start_seconds": 28,
+      "end_seconds": 29,
+      "action": "一只手伸到器具筒口，指尖靠拢在露出的细柄旁。随后镜头向右移，手和器具筒出框，未看清是否抽出器具。",
+      "uncertain": true
+    },
+    {
+      "id": "S11",
+      "start_seconds": 30,
+      "end_seconds": 31,
+      "action": "戴浅色腕带的手在收纳架下层前沿捏住细长白色包装的露出端。下一帧手已离开画面，完整抽出的瞬间未拍到。",
+      "uncertain": true
+    },
+    {
+      "id": "S12",
+      "start_seconds": 31,
+      "end_seconds": 32,
+      "action": "镜头转到咖啡机前，露出机顶格栅和下方的金属托盘，本段未见手操作物品。",
+      "uncertain": false
+    },
+    {
+      "id": "S13",
+      "start_seconds": 33,
+      "end_seconds": 34,
+      "action": "手将细长白色包装放在机顶格栅右侧。下一帧包装平躺在格栅上，手已移到旁边。",
+      "uncertain": false
+    },
+    {
+      "id": "S14",
+      "start_seconds": 34,
+      "end_seconds": 37,
+      "action": "戴腕带的手在机顶右侧抓住深色短柄；镜头转到水槽旁时，手持一只带深棕短柄的小透明杯，将它移到另一只透明杯前方。小杯离开机顶的瞬间未拍到。",
+      "uncertain": true
+    },
+    {
+      "id": "S15",
+      "start_seconds": 37,
+      "end_seconds": 38,
+      "action": "手将带柄透明小杯放在较大的透明杯前方。随后手已改握另一件物品，小杯留在台面上。",
+      "uncertain": true
+    },
+    {
+      "id": "S16",
+      "start_seconds": 38,
+      "end_seconds": 39,
+      "action": "手握长柄勺的柄尾，将勺放到透明杯右侧。下一帧手已退出，勺留在台面上。",
+      "uncertain": false
+    },
+    {
+      "id": "S17",
+      "start_seconds": 39,
+      "end_seconds": 42,
+      "action": "镜头先抬起，再向左扫过双槽水槽，随后略转回右槽方向；未见手操作杯具或出水。",
+      "uncertain": false
+    },
+    {
+      "id": "S18",
+      "start_seconds": 43,
+      "end_seconds": 44,
+      "action": "双手在右槽沥水架前托住一只透明杯，下一帧杯口已移到左槽上方的高弯龙头下。",
+      "uncertain": true
+    },
+    {
+      "id": "S19",
+      "start_seconds": 44,
+      "end_seconds": 47,
+      "action": "操作者把透明杯托在水流下，调整杯口角度让水冲入杯内，随后将杯移离水柱并放低到槽内上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S20",
+      "start_seconds": 48,
+      "end_seconds": 49,
+      "action": "左手把刚冲过的透明杯移到右槽沥水架上并下放。00:49 手还扶着杯，后续画面可见杯留在架上。",
+      "uncertain": true
+    },
+    {
+      "id": "S21",
+      "start_seconds": 50,
+      "end_seconds": 54,
+      "action": "操作者先把带柄小量杯举到龙头旁，随后握着短柄转动杯身，另一只手的手指贴着杯口和杯壁，在水流下冲洗。末帧杯口仍在水柱下。",
+      "uncertain": true
+    },
+    {
+      "id": "S22",
+      "start_seconds": 55,
+      "end_seconds": 56,
+      "action": "右手伸到弯管后方、靠近龙头控制处。此时仍有水流，随后镜头转向右槽，未拍到控制件的确切动作或水流停止的瞬间。",
+      "uncertain": true
+    },
+    {
+      "id": "S23",
+      "start_seconds": 56,
+      "end_seconds": 57,
+      "action": "操作者将带柄小量杯下放到沥水架前部，深棕短柄朝右。松手瞬间被画面下缘遮住。",
+      "uncertain": true
+    },
+    {
+      "id": "S24",
+      "start_seconds": 58,
+      "end_seconds": 59,
+      "action": "操作者先将长柄勺举到龙头旁，再用双手把勺移到出水处，让水冲过勺柄和靠近勺头的位置。最后一帧仍在冲洗，未见放下勺子。",
+      "uncertain": true
+    },
+    {
+      "id": "S25",
+      "start_seconds": 60,
+      "end_seconds": 62,
+      "action": "操作者双手握住银色长柄吧勺，把它从横握调整为斜握，让水柱冲过勺柄和一端。到01:02，手和吧勺已离开水柱，出水口下方仍可见细流。",
+      "uncertain": false
+    },
+    {
+      "id": "S26",
+      "start_seconds": 62,
+      "end_seconds": 65,
+      "action": "镜头离开水槽后转回；到01:05，一只手在沥水架前竖握吧勺。",
+      "uncertain": false
+    },
+    {
+      "id": "S27",
+      "start_seconds": 66,
+      "end_seconds": 70,
+      "action": "操作者一手握住吧勺，另一手用口布包住长柄，沿柄擦拭。随后将勺柄抽出一段并换握，再用布贴住另一段擦拭。",
+      "uncertain": false
+    },
+    {
+      "id": "S28",
+      "start_seconds": 70,
+      "end_seconds": 72,
+      "action": "操作者手持吧勺从水槽侧移到咖啡机前，将勺举到接近机顶格栅的高度。",
+      "uncertain": false
+    },
+    {
+      "id": "S29",
+      "start_seconds": 72,
+      "end_seconds": 73,
+      "action": "操作者把竖握的吧勺移到机顶格栅上方，手朝栅面放低。手挡住了吧勺与栅面的接触处，未清楚拍到松手。",
+      "uncertain": true
+    },
+    {
+      "id": "S30",
+      "start_seconds": 74,
+      "end_seconds": 75,
+      "action": "镜头转回水槽，取景落到右槽的沥水架上。",
+      "uncertain": false
+    },
+    {
+      "id": "S31",
+      "start_seconds": 75,
+      "end_seconds": 76,
+      "action": "操作者伸手握住带短柄的透明量杯，把它从沥水架上提起。",
+      "uncertain": false
+    },
+    {
+      "id": "S32",
+      "start_seconds": 76,
+      "end_seconds": 85,
+      "action": "操作者一手转动量杯，另一手把口布按在杯口和杯身上擦拭，并数次换握。后半段布裹住大半杯身，深棕色短柄仍从布边露出；到01:25，杯和布仍拿在手中。",
+      "uncertain": false
+    },
+    {
+      "id": "S33",
+      "start_seconds": 85,
+      "end_seconds": 86,
+      "action": "镜头向右移到咖啡机前；开始时杯和口布仍在手中，到01:26双手已出画。",
+      "uncertain": false
+    },
+    {
+      "id": "S34",
+      "start_seconds": 87,
+      "end_seconds": 88,
+      "action": "操作者手握带深棕色短柄的量杯，把杯伸到机顶格栅上方并向栅面靠近。镜头随即转开，未拍清杯底接触格栅或手松开。",
+      "uncertain": true
+    },
+    {
+      "id": "S35",
+      "start_seconds": 88,
+      "end_seconds": 89,
+      "action": "镜头转回水槽；片段末帧一只手伸到沥水架前沿附近，未见手取走透明杯。",
+      "uncertain": true
+    },
+    {
+      "id": "S36",
+      "start_seconds": 90,
+      "end_seconds": 105,
+      "action": "操作者左手握住玻璃杯，右手把蓝边白布贴到杯口，左手将杯转至近水平。随后把杯转回较直的位置，用布包住杯身擦拭；中途短暂移开布，又贴回杯口和杯壁继续擦。到段末，杯仍握在左手，布仍贴近杯口。",
+      "uncertain": false
+    },
+    {
+      "id": "S37",
+      "start_seconds": 106,
+      "end_seconds": 107,
+      "action": "操作者左手将玻璃杯竖着降向台面。放手的瞬间没有拍清；随后可见双手转而拿布，杯子留在设备旁的台面上。",
+      "uncertain": true
+    },
+    {
+      "id": "S38",
+      "start_seconds": 107,
+      "end_seconds": 110,
+      "action": "操作者捏住白布的蓝边，将原本拢在一起的布向两侧拉开并举起，展开的布面遮住了大半画面。",
+      "uncertain": false
+    },
+    {
+      "id": "S39",
+      "start_seconds": 111,
+      "end_seconds": 116,
+      "action": "操作者把展开的布边合拢，拉出一块横向的长方形布面，再将布叠小，用手捏齐边缘。段末双手仍托着折起的口布。",
+      "uncertain": false
+    },
+    {
+      "id": "S40",
+      "start_seconds": 117,
+      "end_seconds": 118,
+      "action": "操作者将折好的口布举到右侧白色设备附近。随后镜头向左摆，口布离开画面；没有看清口布是否接触台面或是否被松手放下。",
+      "uncertain": true
+    },
+    {
+      "id": "S41",
+      "start_seconds": 118,
+      "end_seconds": 119,
+      "action": "镜头向左转回水槽。末帧有手指出现在龙头旁，未能确认是否接触或拨动龙头，也未见出水。",
+      "uncertain": true
+    },
+    {
+      "id": "S42",
+      "start_seconds": 120,
+      "end_seconds": 122,
+      "action": "操作者在流水下双手相搓，随后改变手指和手掌的位置继续冲洗。02:02 的画面里龙头仍在出水。",
+      "uncertain": false
+    },
+    {
+      "id": "S43",
+      "start_seconds": 124,
+      "end_seconds": 125,
+      "action": "操作者伸手抓住灰布上部，将布从墙上取下并带到水槽上方。",
+      "uncertain": true
+    },
+    {
+      "id": "S44",
+      "start_seconds": 125,
+      "end_seconds": 130,
+      "action": "操作者先将手贴在展开的灰布上，再折拢布料，反复擦拭手掌和手指。到 02:10，手仍与布接触。",
+      "uncertain": false
+    },
+    {
+      "id": "S45",
+      "start_seconds": 131,
+      "end_seconds": 133,
+      "action": "操作者抬起灰布，把布的上部对到墙上的小挂点并调整位置。布的下半部垂下，但最后一帧手仍捏着布，未拍到松手后布是否挂稳。",
+      "uncertain": true
+    },
+    {
+      "id": "S46",
+      "start_seconds": 134,
+      "end_seconds": 136,
+      "action": "镜头向右扫过水槽旁的台面，再靠近制冰机正面。这几帧未见手操作设备。",
+      "uncertain": false
+    },
+    {
+      "id": "S47",
+      "start_seconds": 137,
+      "end_seconds": 138,
+      "action": "操作者一手握住透明高杯，将杯举到画面前方，杯口朝上。未拍到手是从哪里拿起杯子的。",
+      "uncertain": true
+    },
+    {
+      "id": "S48",
+      "start_seconds": 138,
+      "end_seconds": 139,
+      "action": "制冰机前盖由关合变为向外下翻，露出蓝色内仓。抽样画面没有显示手接触前盖或拨动开关。",
+      "uncertain": true
+    },
+    {
+      "id": "S49",
+      "start_seconds": 140,
+      "end_seconds": 141,
+      "action": "镜头先靠近敞开的内仓，再向左摆；一只手握着高杯出现在开口左侧，未见杯子伸入内仓。",
+      "uncertain": false
+    },
+    {
+      "id": "S50",
+      "start_seconds": 142,
+      "end_seconds": 145,
+      "action": "操作者一手持浅色冰铲伸入储冰区，在仓内移动铲子，随后把铲子抬向开口。手和仓口遮住了铲头的一部分，看不清实际铲起几块。",
+      "uncertain": true
+    },
+    {
+      "id": "S51",
+      "start_seconds": 146,
+      "end_seconds": 149,
+      "action": "操作者一手斜持高杯，把杯口对到铲头下方，另一手将冰铲朝杯口倾斜。杯口一度被铲头遮住，看不清冰块越过杯口的瞬间。到 02:29，铲子退回仓口方向，杯子移向左侧，透过杯壁可见下部有冰块，未见冰块达到杯口。",
+      "uncertain": true
+    },
+    {
+      "id": "S52",
+      "start_seconds": 150,
+      "end_seconds": 153,
+      "action": "右手握住白铲，在蓝光照亮的料槽里移动铲头，再将铲子抬向开口外。",
+      "uncertain": true
+    },
+    {
+      "id": "S53",
+      "start_seconds": 153,
+      "end_seconds": 154,
+      "action": "左手托住透明杯，右手将白铲朝杯口倾斜；随后杯子降向左下方，杯内可见冰块。",
+      "uncertain": true
+    },
+    {
+      "id": "S54",
+      "start_seconds": 154,
+      "end_seconds": 157,
+      "action": "右手再次把铲头伸入槽内，沿槽内下部移动，再抬起白铲，朝开口前方移出。",
+      "uncertain": true
+    },
+    {
+      "id": "S55",
+      "start_seconds": 157,
+      "end_seconds": 158,
+      "action": "左手把杯口对到铲头下方，白铲向杯口倾斜，随后抬离；杯内可见一堆冰块。",
+      "uncertain": true
+    },
+    {
+      "id": "S56",
+      "start_seconds": 159,
+      "end_seconds": 163,
+      "action": "右手在槽内压低并转动白铲，再将铲头抬向槽口。抬起前，铲内可见浅色块状物。",
+      "uncertain": false
+    },
+    {
+      "id": "S57",
+      "start_seconds": 163,
+      "end_seconds": 164,
+      "action": "左手举起装冰的杯子，白铲靠近杯口后斜向右上方移开；杯子仍握在手中，杯内可见成堆的冰块。不能确认这一次是否有冰落入杯中。",
+      "uncertain": true
+    },
+    {
+      "id": "S58",
+      "start_seconds": 165,
+      "end_seconds": 166,
+      "action": "设备前部从露出料槽变为由前面板遮住；没有拍清面板合上的瞬间，也无法确认由哪只手操作。",
+      "uncertain": true
+    },
+    {
+      "id": "S59",
+      "start_seconds": 166,
+      "end_seconds": 169,
+      "action": "左手把装冰的透明杯从设备旁移到水槽上方，再将杯口送到右侧小龙头的出水嘴下。",
+      "uncertain": false
+    },
+    {
+      "id": "S60",
+      "start_seconds": 169,
+      "end_seconds": 178,
+      "action": "右手拨动小龙头侧面的短柄，左手把冰杯保持在出水嘴下。可见细水流进入杯中，杯内冰块随水晃动，后段可见冰块周围有水。",
+      "uncertain": true
+    },
+    {
+      "id": "S61",
+      "start_seconds": 178,
+      "end_seconds": 179,
+      "action": "左手将杯子从小龙头下移开并举起，结束时仍握着杯子，杯内可见冰块和透明液体。",
+      "uncertain": false
+    },
+    {
+      "id": "S62",
+      "start_seconds": 180,
+      "end_seconds": 183,
+      "action": "操作者举着透明高杯离开水槽区域，沿吧台经过咖啡机，随后用右手持杯靠近磨豆机旁的台面。",
+      "uncertain": false
+    },
+    {
+      "id": "S63",
+      "start_seconds": 183,
+      "end_seconds": 185,
+      "action": "操作者用右手将透明杯降到方形金属盒前方偏右的台面处；镜头随即转开，未清楚拍到松手。",
+      "uncertain": true
+    },
+    {
+      "id": "S64",
+      "start_seconds": 185,
+      "end_seconds": 188,
+      "action": "镜头扫过台面并靠近咖啡机顶部，这段未见手接触物品。",
+      "uncertain": false
+    },
+    {
+      "id": "S65",
+      "start_seconds": 188,
+      "end_seconds": 191,
+      "action": "操作者用右手抓起靠右的咖啡手柄，将它移离顶部格栅；到咖啡机正面时，手柄已由左手握着，换手瞬间未拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S66",
+      "start_seconds": 191,
+      "end_seconds": 194,
+      "action": "操作者用右手拇指按右侧按键组的中间键，冲煮头下可见水流；左手将滤篮开口朝上移到出水处下方。",
+      "uncertain": false
+    },
+    {
+      "id": "S67",
+      "start_seconds": 194,
+      "end_seconds": 198,
+      "action": "操作者把手柄移离冲煮头，在滴水格栅上方倾转滤篮；镜头短暂偏向机器右侧，转回后左手仍握着手柄。看不清滤篮内是否有水倒出。",
+      "uncertain": true
+    },
+    {
+      "id": "S68",
+      "start_seconds": 198,
+      "end_seconds": 200,
+      "action": "操作者左手举着手柄，右手将咖色抹布带到滤篮口旁。抹布原先放在哪里、何时被拿起均未拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S69",
+      "start_seconds": 200,
+      "end_seconds": 206,
+      "action": "操作者先将抹布压进滤篮内擦拭，再转动手柄，擦过滤篮口沿及金属头外侧和底部，最后把布移开。画面无法确认水渍是否完全擦干。",
+      "uncertain": false
+    },
+    {
+      "id": "S70",
+      "start_seconds": 205,
+      "end_seconds": 207,
+      "action": "操作者用左手把手柄放到滴水格栅上，金属头底部朝上，随后移开左手。",
+      "uncertain": false
+    },
+    {
+      "id": "S71",
+      "start_seconds": 207,
+      "end_seconds": 208,
+      "action": "操作者左手伸向台面下方；下一帧可见一条浅木色边缘向外突出，但手是否抓住把手、拉开的是哪一部件没有拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S72",
+      "start_seconds": 208,
+      "end_seconds": 209,
+      "action": "操作者把咖色抹布横搭在浅木色边缘上，用双手将布摊开并按住。最后一帧双手仍在布上，未见松手。",
+      "uncertain": true
+    },
+    {
+      "id": "S73",
+      "start_seconds": 210,
+      "end_seconds": 212,
+      "action": "操作者握住黑色握柄，将手柄移向左侧；到03:32，金属头只在画面左缘露出一部分。",
+      "uncertain": true
+    },
+    {
+      "id": "S74",
+      "start_seconds": 212,
+      "end_seconds": 214,
+      "action": "戴白色表带的手用蓝布擦过滴水格栅，随后把布移到格栅右侧外。",
+      "uncertain": false
+    },
+    {
+      "id": "S75",
+      "start_seconds": 214,
+      "end_seconds": 215,
+      "action": "操作者握着格栅上的黑柄。下一帧双手已改为拿蓝布；镜头之后转回时，可见手柄横放在格栅上。",
+      "uncertain": true
+    },
+    {
+      "id": "S76",
+      "start_seconds": 215,
+      "end_seconds": 217,
+      "action": "操作者双手拿着蓝布，将布展开并放到咖啡机旁的白色台面上。",
+      "uncertain": true
+    },
+    {
+      "id": "S77",
+      "start_seconds": 217,
+      "end_seconds": 220,
+      "action": "一只手伸向格栅上的咖啡机手柄，随后视角转到磨豆机前。抽样帧未显示手柄离开格栅的瞬间，也未显示接粉。",
+      "uncertain": true
+    },
+    {
+      "id": "S78",
+      "start_seconds": 220,
+      "end_seconds": 226,
+      "action": "戴白色表带的手先用指尖接触电子秤右边缘，随后把手指移到右下角附近并撤开。撤手后秤面下部可见微弱蓝光，数字读不清。",
+      "uncertain": true
+    },
+    {
+      "id": "S79",
+      "start_seconds": 226,
+      "end_seconds": 230,
+      "action": "操作者握着黑柄，把滤篮口朝上持在电子秤左侧；到03:50，手柄从左下方抬向秤面。",
+      "uncertain": false
+    },
+    {
+      "id": "S80",
+      "start_seconds": 230,
+      "end_seconds": 234,
+      "action": "操作者将手柄移到秤面上方，转动并调整摆放角度，随后松手。手柄留在电子秤上，滤篮口朝上，黑柄斜向左下。",
+      "uncertain": false
+    },
+    {
+      "id": "S81",
+      "start_seconds": 235,
+      "end_seconds": 239,
+      "action": "操作者伸出食指指向黑柄和秤的前缘一带，手指退到台面前侧后又指向秤的右前角，随后退出画面。手柄和秤都未见移动。",
+      "uncertain": true
+    },
+    {
+      "id": "S82",
+      "start_seconds": 240,
+      "end_seconds": 242,
+      "action": "右手食指伸向磨豆机出粉口右侧，随后撤开。磨豆机触屏由黑屏变为显示图标，未拍清手指是否碰到机身，也不能确认屏幕因何亮起。",
+      "uncertain": true
+    },
+    {
+      "id": "S83",
+      "start_seconds": 242,
+      "end_seconds": 245,
+      "action": "右手握住黑柄，把金属滤篮举到出粉口下方，微调位置后托住手柄，使篮口朝上对着出粉口。左手食指随后在机身左侧抬起。",
+      "uncertain": false
+    },
+    {
+      "id": "S84",
+      "start_seconds": 245,
+      "end_seconds": 252,
+      "action": "右手稳住咖啡手柄，左手食指伸到屏幕下方中央的图标处，多帧保持在该区域。屏幕中央出现变化的数字；到 04:12，左手食指离开屏幕，滤篮内可见深棕色粉面。抽样画面未清楚显示粉末下落。",
+      "uncertain": true
+    },
+    {
+      "id": "S85",
+      "start_seconds": 252,
+      "end_seconds": 257,
+      "action": "操作者将咖啡手柄从出粉口下取出，移到电子秤上。左手调整黑柄的位置后松开，手柄斜留在秤面；右手随后朝秤的前缘伸指。秤面数字不够清楚，无法从画面确认读数。",
+      "uncertain": false
+    },
+    {
+      "id": "S86",
+      "start_seconds": 258,
+      "end_seconds": 261,
+      "action": "左手抓住黑柄把手柄从秤上提起，右手扶住滤篮外缘。两手将篮口朝上的手柄移到磨豆机前，随后左手把滤篮托到出粉口下方。",
+      "uncertain": false
+    },
+    {
+      "id": "S87",
+      "start_seconds": 261,
+      "end_seconds": 263,
+      "action": "左手握柄托住滤篮，右手食指从触屏偏右处移到下方中央并触碰屏幕。屏幕中央短暂出现数字，随后右手撤离触屏。画面未清楚显示粉末落入滤篮，也无法确认粉量变化。",
+      "uncertain": true
+    },
+    {
+      "id": "S88",
+      "start_seconds": 263,
+      "end_seconds": 266,
+      "action": "左手将离开出粉口的咖啡手柄移回电子秤，右手从篮沿移开。左手把手柄斜放到秤面上后松开；秤面读数看不清。",
+      "uncertain": false
+    },
+    {
+      "id": "S89",
+      "start_seconds": 267,
+      "end_seconds": 269,
+      "action": "左手抓住黑柄，把咖啡手柄从秤上再次提起并移到磨豆机前。右手先扶住篮沿，随后松开并抬向机身；末帧未见手指触屏或粉末下落。",
+      "uncertain": false
+    },
+    {
+      "id": "S90",
+      "start_seconds": 270,
+      "end_seconds": 271,
+      "action": "左手握住咖啡手柄，使粉碗保持在出粉口下方；右手食指点在触屏下方中央的图标处，随后移开。",
+      "uncertain": true
+    },
+    {
+      "id": "S91",
+      "start_seconds": 271,
+      "end_seconds": 275,
+      "action": "左手将咖啡手柄从磨豆机下方拉出，右手短暂扶住粉碗外缘。左手将手柄斜放到电子秤上并松开，粉碗朝上，黑柄朝左下方。",
+      "uncertain": false
+    },
+    {
+      "id": "S92",
+      "start_seconds": 277,
+      "end_seconds": 279,
+      "action": "左手从秤上提起咖啡手柄，将开口朝上的粉碗移到方形盒开口上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S93",
+      "start_seconds": 279,
+      "end_seconds": 281,
+      "action": "左手握住黑柄，右手指尖贴近粉碗上缘，在碗口处移过一小段，随后扶在碗沿外侧。未看清是否有粉末被拨出或落进盒内。",
+      "uncertain": true
+    },
+    {
+      "id": "S94",
+      "start_seconds": 281,
+      "end_seconds": 284,
+      "action": "左手把咖啡手柄放回电子秤，随后松手。粉碗保持朝上，黑柄斜向左下方。",
+      "uncertain": false
+    },
+    {
+      "id": "S95",
+      "start_seconds": 287,
+      "end_seconds": 288,
+      "action": "右手伸出食指，指向电子秤前缘附近。手柄仍留在秤上，未见按键动作。",
+      "uncertain": false
+    },
+    {
+      "id": "S96",
+      "start_seconds": 289,
+      "end_seconds": 292,
+      "action": "左手握住黑柄，将咖啡手柄从秤上提起，右手短暂扶住粉碗边缘。两手将手柄移到木座前端，粉碗落入圆形凹槽，黑柄从前端伸出。",
+      "uncertain": false
+    },
+    {
+      "id": "S97",
+      "start_seconds": 293,
+      "end_seconds": 294,
+      "action": "右手抓住圆形布粉器，将它从木座中槽拿起，移到粉碗口上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S98",
+      "start_seconds": 294,
+      "end_seconds": 298,
+      "action": "左手握稳黑柄，右手将布粉器放平在粉碗口，转动布粉器。随后右手将工具提离碗口，露出粉面。抽样画面无法可靠数出旋转圈数。",
+      "uncertain": true
+    },
+    {
+      "id": "S99",
+      "start_seconds": 298,
+      "end_seconds": 299,
+      "action": "右手将布粉器放回木座中槽，随后松开。",
+      "uncertain": false
+    },
+    {
+      "id": "S100",
+      "start_seconds": 299,
+      "end_seconds": 300.0,
+      "action": "右手握住深棕色球形柄，将银色底座的压粉器提离木座后槽；最后一帧未见压粉器接触粉面。",
+      "uncertain": true
+    },
+    {
+      "id": "S101",
+      "start_seconds": 300,
+      "end_seconds": 304,
+      "action": "操作者用左手稳住冲煮手柄，右手调整握法后握住压粉器向下压。到05:04，压粉器已离开粉碗，露出平整的深棕色粉面。抽帧看不清开始施力的确切时刻。",
+      "uncertain": true
+    },
+    {
+      "id": "S102",
+      "start_seconds": 304,
+      "end_seconds": 305,
+      "action": "操作者用右手把压粉器移到木座后端放下，随后松手；压粉器直立留在木座上。",
+      "uncertain": false
+    },
+    {
+      "id": "S103",
+      "start_seconds": 305,
+      "end_seconds": 306,
+      "action": "操作者握着黑柄，把冲煮手柄从木座移到方形槽上方，粉碗口保持朝上。离开木座的确切瞬间不在抽帧中。",
+      "uncertain": true
+    },
+    {
+      "id": "S104",
+      "start_seconds": 306,
+      "end_seconds": 311,
+      "action": "操作者左手托住冲煮手柄，右手指尖沿粉碗的金属边缘分几次拂过，随后移开。粉面仍留在碗内，画面看不清是否有粉渣落入槽内。",
+      "uncertain": false
+    },
+    {
+      "id": "S105",
+      "start_seconds": 311,
+      "end_seconds": 312,
+      "action": "操作者把冲煮手柄带离方形槽；到05:12，粉碗仍朝上，手柄随视角移动到了画面右缘。",
+      "uncertain": false
+    },
+    {
+      "id": "S106",
+      "start_seconds": 312,
+      "end_seconds": 316,
+      "action": "操作者把黑色电子秤从磨豆机旁带到咖啡机前，放在滴水盘左侧。抽帧未完整显示电子秤离开原台面和接触格栅的瞬间，秤面数字看不清。",
+      "uncertain": true
+    },
+    {
+      "id": "S107",
+      "start_seconds": 316,
+      "end_seconds": 325,
+      "action": "操作者将左手搭在机身前缘，拇指贴住右侧按键组中部。约05:22，部分蓝灯变暗，下一帧又亮起；到05:25，手已离开面板。抽帧不能确认具体按下和松开的时刻，也看不清冲泡头下方是否有连续水流。",
+      "uncertain": true
+    },
+    {
+      "id": "S108",
+      "start_seconds": 325,
+      "end_seconds": 327,
+      "action": "镜头先向右扫，再转回咖啡机正面。装粉的粉碗先后在画面下缘出现，但握持处和移动路径没有完整拍到，未见它接上冲泡头。",
+      "uncertain": true
+    },
+    {
+      "id": "S109",
+      "start_seconds": 328,
+      "end_seconds": 329,
+      "action": "戴浅色腕表的右手摊开手掌按住蓝布，在滴水盘格栅上擦动。最后一帧手仍按着布，未见收布。",
+      "uncertain": false
+    },
+    {
+      "id": "S110",
+      "start_seconds": 330,
+      "end_seconds": 331,
+      "action": "操作者把蓝布压在沥水盘右侧栅条上擦拭，随后将布移离栅面。",
+      "uncertain": false
+    },
+    {
+      "id": "S111",
+      "start_seconds": 331,
+      "end_seconds": 333,
+      "action": "镜头向左扫过沥水盘，再向上对准机顶。05:32 下缘短暂露出一个带金属圆边、内呈深棕色的物件，未拍到它如何进入或离开画面。",
+      "uncertain": true
+    },
+    {
+      "id": "S112",
+      "start_seconds": 333,
+      "end_seconds": 335,
+      "action": "操作者握住透明量杯的短柄，将杯从机顶提起，再持杯向机器正面下方移动。",
+      "uncertain": false
+    },
+    {
+      "id": "S113",
+      "start_seconds": 335,
+      "end_seconds": 337,
+      "action": "操作者将量杯放到电子秤上，松开杯柄，留下量杯立在秤面上。",
+      "uncertain": false
+    },
+    {
+      "id": "S114",
+      "start_seconds": 337,
+      "end_seconds": 339,
+      "action": "操作者用食指点触电子秤右前方的面板，随后移开手指；量杯仍留在秤上。",
+      "uncertain": true
+    },
+    {
+      "id": "S115",
+      "start_seconds": 340,
+      "end_seconds": 342,
+      "action": "操作者先握住量杯短柄，随后手移到电子秤左缘，再撤开。到 05:42，量杯仍在秤上，未见被单独拿走。",
+      "uncertain": true
+    },
+    {
+      "id": "S116",
+      "start_seconds": 343,
+      "end_seconds": 346,
+      "action": "操作者双手握着咖啡手柄，把圆形金属粉碗抬到右侧冲煮头下，转动黑柄。松手后，手柄留在冲煮头上，黑柄朝前伸出。",
+      "uncertain": false
+    },
+    {
+      "id": "S117",
+      "start_seconds": 346,
+      "end_seconds": 347,
+      "action": "操作者从两侧扶着电子秤，把秤连同杯子移到右侧冲煮头下方，随后一只手改握杯柄。",
+      "uncertain": false
+    },
+    {
+      "id": "S118",
+      "start_seconds": 347,
+      "end_seconds": 348,
+      "action": "操作者一手扶住杯柄，另一手用拇指按住右组中间的键。随后该键下方仍亮蓝灯，相邻可见按键的蓝灯变暗。",
+      "uncertain": true
+    },
+    {
+      "id": "S119",
+      "start_seconds": 348,
+      "end_seconds": 354,
+      "action": "操作者继续扶着杯柄，另一只手的拇指留在按键上。后续帧中透过杯壁可见深棕色液体；到 05:54，扶杯的手已松开，杯仍留在秤上。出液口一带被遮挡，液流和开始时刻看不清。",
+      "uncertain": true
+    },
+    {
+      "id": "S120",
+      "start_seconds": 354,
+      "end_seconds": 359,
+      "action": "操作者一手的拇指仍贴在右组按键上，另一手伸出食指指向黑柄末端和秤前缘一带，随后收回。末帧杯和黑柄仍在原位，未见再次按键或明确结束的动作。",
+      "uncertain": true
+    },
+    {
+      "id": "S121",
+      "start_seconds": 360,
+      "end_seconds": 371,
+      "action": "操作者一手搭在咖啡机前沿，拇指贴着右侧停止键。接液杯留在秤上，后几帧可见细棕色液流从出液口落入杯中。看不清液流开始的瞬间，也未见清楚的按键下压动作。",
+      "uncertain": true
+    },
+    {
+      "id": "S122",
+      "start_seconds": 372,
+      "end_seconds": 376,
+      "action": "另一只手从下方伸出食指，朝冲煮手柄末端与秤前缘一带指了几秒，随后收回画外。指尖是否碰到物品看不清；指示期间仍可见细棕色液流入杯。",
+      "uncertain": true
+    },
+    {
+      "id": "S123",
+      "start_seconds": 376,
+      "end_seconds": 383,
+      "action": "操作者只留一只手搭在面板前沿，拇指仍贴在停止键处。细棕色液流继续落入秤上的杯中，杯和秤均未移位。",
+      "uncertain": false
+    },
+    {
+      "id": "S124",
+      "start_seconds": 384,
+      "end_seconds": 387,
+      "action": "操作者再次从下方伸出食指，朝冲煮手柄末端与秤前缘一带指示。上方拇指仍在停止键处，杯中仍可见落下的细流。看不清下方指尖是否接触物品。",
+      "uncertain": true
+    },
+    {
+      "id": "S125",
+      "start_seconds": 388,
+      "end_seconds": 389,
+      "action": "上方拇指在停止键处略有移动，相邻两个杯形键的蓝灯亮起。随后下方食指收出画面，接液杯仍留在秤上；到06:29已看不清先前可见的连续细流。抽样帧不足以确认按键实际下压或液流停止的瞬间。",
+      "uncertain": true
+    },
+    {
+      "id": "S126",
+      "start_seconds": 390,
+      "end_seconds": 394,
+      "action": "操作者右手搭在咖啡机前沿，拇指贴着右侧一枚蓝灯上方的按键区域。抽样帧看不清拇指是否压下按键，也无法确认咖啡是否在此时停止流出。",
+      "uncertain": true
+    },
+    {
+      "id": "S127",
+      "start_seconds": 394,
+      "end_seconds": 396,
+      "action": "操作者伸出左手食指，指向黑色冲煮手柄末端附近。右手仍搭在控制面板处。看不清食指是否碰到手柄，也不能确定它具体指向手柄还是后方的秤。",
+      "uncertain": true
+    },
+    {
+      "id": "S128",
+      "start_seconds": 397,
+      "end_seconds": 400,
+      "action": "操作者握住量杯短柄，将量杯从冲煮头下取走。06:39 仍可见手握着杯柄，06:40 镜头转开时秤面已不见量杯；杯底离开秤面的瞬间没有拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S129",
+      "start_seconds": 400,
+      "end_seconds": 405,
+      "action": "操作者手持量杯移到相邻台面，沿透明高杯的右侧靠近；量杯随后大部分移出画面右缘，此时还未见液流。",
+      "uncertain": false
+    },
+    {
+      "id": "S130",
+      "start_seconds": 406,
+      "end_seconds": 410,
+      "action": "操作者从右侧把棕色液体倒入透明高杯。棕色液体在冰块之间散开，杯中颜色逐渐加深。到 06:50，已看不到液流或量杯，高杯仍立在台面上。",
+      "uncertain": false
+    },
+    {
+      "id": "S131",
+      "start_seconds": 411,
+      "end_seconds": 413,
+      "action": "操作者手持量杯靠近水槽，并把量杯伸到槽内金属沥水区域的上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S132",
+      "start_seconds": 413,
+      "end_seconds": 414,
+      "action": "操作者将量杯伸向槽内的沥水区域，最后看得到量杯时手仍握着杯柄。随后镜头转开，没看到量杯是否落稳或手是否松开。",
+      "uncertain": true
+    },
+    {
+      "id": "S133",
+      "start_seconds": 415,
+      "end_seconds": 416,
+      "action": "操作者伸手到网格架上的长勺位置。镜头转向磨豆机旁的台面时，前景闪过一根细长的金属杆；抓住勺柄并把勺抬离网格的瞬间没有拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S134",
+      "start_seconds": 417,
+      "end_seconds": 418,
+      "action": "操作者用左手握住高杯杯身，把杯子从台面抬到镜头前。",
+      "uncertain": false
+    },
+    {
+      "id": "S135",
+      "start_seconds": 418,
+      "end_seconds": 419,
+      "action": "操作者左手托握高杯，右手把长柄金属勺伸入杯中拨动液体和冰块。最后一帧勺仍在杯内，未见抽出。",
+      "uncertain": false
+    },
+    {
+      "id": "S136",
+      "start_seconds": 420,
+      "end_seconds": 424,
+      "action": "操作者左手握住高杯，右手用长柄吧勺在杯内搅动深棕色饮料。视角开始转向水槽时，勺头已抬到液面附近。",
+      "uncertain": true
+    },
+    {
+      "id": "S137",
+      "start_seconds": 424,
+      "end_seconds": 426,
+      "action": "操作者端着高杯靠近水槽，吧勺从液面附近抬到杯口上方，随后与杯子分开。",
+      "uncertain": true
+    },
+    {
+      "id": "S138",
+      "start_seconds": 426,
+      "end_seconds": 428,
+      "action": "操作者右手将吧勺伸低至水槽内、靠近排水口的位置；随后右手和吧勺离开取景范围。没有清楚拍到松手。",
+      "uncertain": true
+    },
+    {
+      "id": "S139",
+      "start_seconds": 428,
+      "end_seconds": 432,
+      "action": "操作者端着高杯离开水槽，经过咖啡机一侧，来到放有托盘的台面前。",
+      "uncertain": false
+    },
+    {
+      "id": "S140",
+      "start_seconds": 432,
+      "end_seconds": 435,
+      "action": "操作者一手搭住托盘近边，另一手把高杯放低到托盘内，随后双手扶住杯身，将杯子移到靠近托盘中央的位置。镜头转开前仍见手扶杯，07:18 回看时杯已独立立在托盘上。",
+      "uncertain": true
+    },
+    {
+      "id": "S141",
+      "start_seconds": 435,
+      "end_seconds": 437,
+      "action": "视角离开托盘台面并靠近咖啡机，直到机顶网格进入近景。",
+      "uncertain": false
+    },
+    {
+      "id": "S142",
+      "start_seconds": 437,
+      "end_seconds": 438,
+      "action": "操作者伸手够向机顶的白色细长物；视角转回托盘方向时，画面下缘出现白色细长条。没有清楚拍到它离开网格的瞬间。",
+      "uncertain": true
+    },
+    {
+      "id": "S143",
+      "start_seconds": 438,
+      "end_seconds": 439,
+      "action": "视角向托盘靠近，操作者将白色细长吸管带到托盘右侧近处，此时尚未放下。",
+      "uncertain": false
+    },
+    {
+      "id": "S144",
+      "start_seconds": 439,
+      "end_seconds": 441,
+      "action": "操作者用右手把吸管放在高杯的画面右侧，使其大致沿托盘右边缘摆放，随后手移开。",
+      "uncertain": false
+    },
+    {
+      "id": "S145",
+      "start_seconds": 441,
+      "end_seconds": 444,
+      "action": "操作者先伸右手接触纸巾边缘，再用双手从叠放处取出印有深色图案的白色纸巾，拿到托盘前方。",
+      "uncertain": false
+    },
+    {
+      "id": "S146",
+      "start_seconds": 444,
+      "end_seconds": 447,
+      "action": "操作者用左手将纸巾放低到杯子的画面左侧，斜着摆在托盘上，随后松开纸巾。",
+      "uncertain": false
+    },
+    {
+      "id": "S147",
+      "start_seconds": 447,
+      "end_seconds": 448,
+      "action": "操作者左手短暂扶住杯身下部，右手指伸到吸管近端旁。随后左手离开杯身；杯子仍直立，吸管仍在右侧，看不清吸管是否被拨动。",
+      "uncertain": true
+    },
+    {
+      "id": "S148",
+      "start_seconds": 448,
+      "end_seconds": 449,
+      "action": "操作者左手搭到托盘近侧左角。镜头上抬时，杯子、纸巾和吸管仍在盘内；看不清托盘是否离开台面。",
+      "uncertain": true
+    },
+    {
+      "id": "S149",
+      "start_seconds": 450,
+      "end_seconds": 457,
+      "action": "操作者的左手从画面下方伸到托盘左前沿，在纸巾旁扶住托盘；随后右侧边缘也露出手指。托盘在前景略有移动，杯子始终直立，纸巾仍在杯子左边。镜头开始右转时，托盘和杯子仍在白色台面上，未见递交。",
+      "uncertain": true
+    },
+    {
+      "id": "S150",
+      "start_seconds": 457,
+      "end_seconds": 460,
+      "action": "镜头右转并靠近咖啡机，从同时拍到水槽和整台机器移到咖啡机正面近景。",
+      "uncertain": false
+    },
+    {
+      "id": "S151",
+      "start_seconds": 460,
+      "end_seconds": 462,
+      "action": "操作者用左手从侧边托住电子秤，右手拿蓝布贴到秤面上；随后电子秤被移出滴水格栅，来到机器前方。",
+      "uncertain": false
+    },
+    {
+      "id": "S152",
+      "start_seconds": 462,
+      "end_seconds": 463,
+      "action": "操作者左手托着电子秤，右手用蓝布擦过秤面。随后蓝布离开秤面，露出黑色表面。",
+      "uncertain": false
+    },
+    {
+      "id": "S153",
+      "start_seconds": 463,
+      "end_seconds": 464,
+      "action": "操作者左手把电子秤移到磨豆机前方的台面边。下一帧视角已回到咖啡机，未拍清是否在这里放手。",
+      "uncertain": true
+    },
+    {
+      "id": "S154",
+      "start_seconds": 464,
+      "end_seconds": 465,
+      "action": "操作者右手握住黑色手柄，将带滤篮的手柄组件从右侧冲煮头取下，拿在滴水格栅上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S155",
+      "start_seconds": 465,
+      "end_seconds": 467,
+      "action": "镜头离开咖啡机并移到敲渣桶旁；右手持咖啡手柄重新入画，把圆形滤篮带到桶口上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S156",
+      "start_seconds": 467,
+      "end_seconds": 468,
+      "action": "操作者右手在桶口上翻转咖啡手柄，将滤篮口朝下，向黑色横杆处压低。抽帧看不清是否敲到横杆，也没拍清有无残渣落下。",
+      "uncertain": true
+    },
+    {
+      "id": "S157",
+      "start_seconds": 468,
+      "end_seconds": 470,
+      "action": "操作者左手抓住垂挂的咖色布，将布向外拉开再提起，带到右手所持滤篮旁。看不清布是否完全脱离挂点。",
+      "uncertain": true
+    },
+    {
+      "id": "S158",
+      "start_seconds": 471,
+      "end_seconds": 479,
+      "action": "操作者右手握住黑柄，左手把咖色抹布按进滤篮口擦拭；随后右手反复翻转手柄，左手用布擦过滤篮口沿、金属外侧和底部出液嘴附近。最后一帧两手仍在擦拭，未见归位。",
+      "uncertain": false
+    },
+    {
+      "id": "S159",
+      "start_seconds": 480,
+      "end_seconds": 486,
+      "action": "操作者右手握住黑色握柄并转动手柄，左手用棕色抹布擦拭银色头部，再把布按到圆形滤篮开口处擦拭，最后将布拉开。",
+      "uncertain": false
+    },
+    {
+      "id": "S160",
+      "start_seconds": 486,
+      "end_seconds": 488,
+      "action": "操作者带着咖啡机手柄移到咖啡机前，随后用左手将滤篮举到滴水盘上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S161",
+      "start_seconds": 488,
+      "end_seconds": 492,
+      "action": "操作者右拇指按在右侧按键组的一枚按键上，冲煮头下方出现细水流。左手将滤篮从水流旁移到出水位置下方，再向左移开；随后右手离开按键区。",
+      "uncertain": true
+    },
+    {
+      "id": "S162",
+      "start_seconds": 492,
+      "end_seconds": 494,
+      "action": "操作者左手在滴水盘上方倾转手柄，先露出银色头部的侧面和底部，再把滤篮开口转向镜头。",
+      "uncertain": false
+    },
+    {
+      "id": "S163",
+      "start_seconds": 494,
+      "end_seconds": 505,
+      "action": "操作者左手握住黑柄，右手将棕色抹布按进滤篮，反复擦拭篮内和边缘。随后左手翻转手柄，右手用布擦过金属头外侧和底部，最后将布移开。",
+      "uncertain": false
+    },
+    {
+      "id": "S164",
+      "start_seconds": 505,
+      "end_seconds": 507,
+      "action": "操作者将刚擦过的手柄举到咖啡机顶部，放在原有手柄右侧的格栅上，随后松手。两个黑柄都朝向机器前方。",
+      "uncertain": false
+    },
+    {
+      "id": "S165",
+      "start_seconds": 507,
+      "end_seconds": 508,
+      "action": "操作者用双手把棕色抹布拢在一起，随后右手移向台面下方。",
+      "uncertain": false
+    },
+    {
+      "id": "S166",
+      "start_seconds": 508,
+      "end_seconds": 509,
+      "action": "操作者右手勾住金色拉手，将木柜门向外拉开。末帧双手仍拿着棕色抹布，布在打开的柜门外侧，未见放入柜内。",
+      "uncertain": false
+    },
+    {
+      "id": "S167",
+      "start_seconds": 510,
+      "end_seconds": 511,
+      "action": "操作者双手捏住棕色布两侧，沿浅木色前沿将布拉展。到本段末，布仍在双手之间，未见松手。",
+      "uncertain": false
+    },
+    {
+      "id": "S168",
+      "start_seconds": 513,
+      "end_seconds": 514,
+      "action": "操作者用右手把深蓝色布压在咖啡机前方的白色台面上擦拭；下一帧手和布已离开这处台面。",
+      "uncertain": true
+    },
+    {
+      "id": "S169",
+      "start_seconds": 515,
+      "end_seconds": 516,
+      "action": "操作者用右手把深蓝色布按在滴水格栅上擦拭。随后视角抬高，手和布离开画面，未见完整的擦拭范围。",
+      "uncertain": true
+    },
+    {
+      "id": "S170",
+      "start_seconds": 516,
+      "end_seconds": 519,
+      "action": "镜头离开咖啡机并转向水槽。转开前，右手短暂出现在咖啡机右侧黑色部件旁，未见该部件明确位移；到本段末，镜头已对准左槽底部。",
+      "uncertain": true
+    },
+    {
+      "id": "S171",
+      "start_seconds": 519,
+      "end_seconds": 520,
+      "action": "操作者从槽底拿起小透明杯，将它举到左槽上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S172",
+      "start_seconds": 520,
+      "end_seconds": 521,
+      "action": "操作者左手持杯，右手伸到水龙头的控制柄处。下一帧水龙头已出水，量杯移到水流下；控制柄拨动的瞬间看不清。",
+      "uncertain": true
+    },
+    {
+      "id": "S173",
+      "start_seconds": 521,
+      "end_seconds": 528,
+      "action": "操作者双手托住量杯，在水柱下反复转动和倾斜杯身，手指换位并沿杯口和杯壁移动。到 08:48，双手把杯往下移离水柱，龙头仍在出水。",
+      "uncertain": false
+    },
+    {
+      "id": "S174",
+      "start_seconds": 529,
+      "end_seconds": 530,
+      "action": "操作者从槽底拿起吧勺，将长柄抬到水柱附近。",
+      "uncertain": false
+    },
+    {
+      "id": "S175",
+      "start_seconds": 530,
+      "end_seconds": 532,
+      "action": "操作者握住吧勺两端，在水柱下左右移送并改变勺柄角度，让水流冲过不同位置。到 08:52，吧勺仍横在水柱下。",
+      "uncertain": false
+    },
+    {
+      "id": "S176",
+      "start_seconds": 533,
+      "end_seconds": 534,
+      "action": "操作者右手伸到水龙头底座后侧。此帧仍可见水柱，随后镜头转离，未拍到停水瞬间；08:56 镜头回到水槽时已看不到水柱。",
+      "uncertain": true
+    },
+    {
+      "id": "S177",
+      "start_seconds": 534,
+      "end_seconds": 535,
+      "action": "镜头离开水槽，靠近咖啡机顶部；移动期间未见操作台面设备。",
+      "uncertain": false
+    },
+    {
+      "id": "S178",
+      "start_seconds": 535,
+      "end_seconds": 537,
+      "action": "操作者右手从机顶格栅处取起白布，随后带着布转回水槽。到 08:57，左手竖持吧勺，右手在勺柄旁展开白布。",
+      "uncertain": false
+    },
+    {
+      "id": "S179",
+      "start_seconds": 537,
+      "end_seconds": 539,
+      "action": "操作者把展开的口布合到吧勺柄上，握着布沿柄移动。最后一帧仍可见部分扭纹勺柄露在布边，无法确认整支吧勺是否已擦干。",
+      "uncertain": true
+    },
+    {
+      "id": "S180",
+      "start_seconds": 540,
+      "end_seconds": 542,
+      "action": "操作者一手捏住细长金属器具，另一手用蓝边白布裹住器具擦拭。到段末布摊开，器具的叉形端和扭纹长柄露了出来。",
+      "uncertain": false
+    },
+    {
+      "id": "S181",
+      "start_seconds": 542,
+      "end_seconds": 544,
+      "action": "操作者手持露出的长柄金属器具沿台面移动，来到磨豆机旁。",
+      "uncertain": false
+    },
+    {
+      "id": "S182",
+      "start_seconds": 544,
+      "end_seconds": 546,
+      "action": "操作者把长柄金属器具转为近乎竖直，移到工具筒口上方。镜头随即转开，没拍清器具是否落入筒内、手是否松开。",
+      "uncertain": true
+    },
+    {
+      "id": "S183",
+      "start_seconds": 546,
+      "end_seconds": 548,
+      "action": "镜头转回水槽并向下靠近沥水架，段末一只手伸入画面。",
+      "uncertain": false
+    },
+    {
+      "id": "S184",
+      "start_seconds": 548,
+      "end_seconds": 549,
+      "action": "操作者伸手到沥水架处，下一帧手已在架上方拿着一只透明容器，另一只手把布移了过来。容器离开架面的瞬间没拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S185",
+      "start_seconds": 549,
+      "end_seconds": 565,
+      "action": "操作者转动带柄容器，用布包擦杯身和杯口。其间数次掀开布露出杯体，再换个角度继续擦；段末容器和布仍拿在手中。",
+      "uncertain": false
+    },
+    {
+      "id": "S186",
+      "start_seconds": 565,
+      "end_seconds": 567,
+      "action": "操作者带着透明容器离开水槽，镜头移到咖啡机旁；段末持容器的手抬到机顶方格架前。",
+      "uncertain": false
+    },
+    {
+      "id": "S187",
+      "start_seconds": 567,
+      "end_seconds": 568,
+      "action": "操作者把透明容器降到机顶方格架处，随后撤开手。下一帧架上可见透明杯体，但松手瞬间没有拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S188",
+      "start_seconds": 568,
+      "end_seconds": 569,
+      "action": "操作者转回水槽方向，段末手里仍捏着蓝边白布，没有看到在水槽处开始下一项操作。",
+      "uncertain": false
+    },
+    {
+      "id": "S189",
+      "start_seconds": 570,
+      "end_seconds": 571,
+      "action": "左手抓着布，右手伸到水龙头拨杆处；下一帧龙头已出水，双手把布送到水柱下。拨动拨杆的瞬间未拍清。",
+      "uncertain": true
+    },
+    {
+      "id": "S190",
+      "start_seconds": 571,
+      "end_seconds": 576,
+      "action": "双手在水柱下翻动、揉按口布，先拉开一部分白色布面，再把露出较多蓝边的部分拢到水柱下。段末布仍在两手之间冲洗。",
+      "uncertain": false
+    },
+    {
+      "id": "S191",
+      "start_seconds": 577,
+      "end_seconds": 578,
+      "action": "右手伸到龙头拨杆一侧，随后离开；下一帧出水口已无水柱。拨杆的具体动作被龙头挡住。",
+      "uncertain": true
+    },
+    {
+      "id": "S192",
+      "start_seconds": 578,
+      "end_seconds": 580,
+      "action": "双手在左槽上方握紧聚成一团的布，转动手腕挤拧，随后松开一些，露出团在一起的白色布面和蓝边。",
+      "uncertain": false
+    },
+    {
+      "id": "S193",
+      "start_seconds": 581,
+      "end_seconds": 587,
+      "action": "双手分开布团，捏着布边向两侧拉开，并调整抓握位置和布的朝向。段末布呈较平整的横长形，仍悬在水槽上方。",
+      "uncertain": false
+    },
+    {
+      "id": "S194",
+      "start_seconds": 588,
+      "end_seconds": 589,
+      "action": "双手将分开的布边并到一起折叠，再捏住两侧调整，最后手中是一块较小的多层布。",
+      "uncertain": false
+    },
+    {
+      "id": "S195",
+      "start_seconds": 590,
+      "end_seconds": 591,
+      "action": "操作者持折好的口布离开水槽视野，沿台面转向咖啡机；到段末，布仍在手中，已靠近机顶。",
+      "uncertain": false
+    },
+    {
+      "id": "S196",
+      "start_seconds": 592,
+      "end_seconds": 593,
+      "action": "双手把折好的口布放到小线架上，随后松手，布留在架顶。",
+      "uncertain": false
+    },
+    {
+      "id": "S197",
+      "start_seconds": 593,
+      "end_seconds": 594,
+      "action": "镜头沿咖啡机向右下方移动，露出滴水盘右侧的蓝色抹布、白色台面和黑色电子秤；此时未见手接触电子秤。",
+      "uncertain": false
+    },
+    {
+      "id": "S198",
+      "start_seconds": 595,
+      "end_seconds": 596,
+      "action": "操作者先用蓝色抹布擦白色台面，随后将抹布移到旁边的黑色电子秤表面；两手换握的瞬间不清楚。",
+      "uncertain": true
+    },
+    {
+      "id": "S199",
+      "start_seconds": 596,
+      "end_seconds": 597,
+      "action": "右手按着蓝色抹布擦拭电子秤表面，左手扶近秤的左侧；此前已擦过秤旁的白色台面。",
+      "uncertain": true
+    },
+    {
+      "id": "S200",
+      "start_seconds": 598,
+      "end_seconds": 599,
+      "action": "左手抬起电子秤，右手随后托住另一侧，双手持秤向台面右侧移动；视频结束前未见放下。",
+      "uncertain": true
+    }
+  ]
+}

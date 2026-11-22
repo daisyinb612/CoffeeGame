@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f1">
+  <title>做一杯冰美式 · CoffeeGame</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="player.js"></script>
+</head>
+<body>
+  <header class="top"><div class="brand"><span class="mark" aria-hidden="true">☕</span> CoffeeGame</div><a href="./?view=portrait">打开 10 分钟互动短剧</a><span id="progress"></span></header>
+  <main>
+    <div class="intro"><p class="kicker">第一人称咖啡实训</p><h1>做一杯冰美式</h1></div>
+    <ol class="phases" id="phases" aria-label="课程阶段"></ol>
+    <p id="load-error" role="alert" hidden></p>
+    <div class="lesson" id="lesson" hidden>
+      <section class="media" aria-label="实拍示范">
+        <section id="workbench" class="workbench" aria-label="可操作的虚拟吧台" hidden></section>
+        <div class="screen" id="screen">
+          <img id="still" alt="" hidden>
+          <video id="video" controls playsinline preload="metadata" hidden aria-label="当前步骤的实拍示范"></video>
+        </div>
+        <div class="media-options" id="media-options" hidden>
+          <label for="speed">速度</label>
+          <select id="speed"><option value=".75">慢速 · 0.75×</option><option value="1" selected>标准 · 1×</option></select>
+          <button id="sound" type="button" aria-pressed="false">原声</button>
+        </div>
+      </section>
+      <section class="panel" aria-labelledby="step-title">
+        <p class="kicker" id="step-label"></p>
+        <h2 id="step-title" tabindex="-1"></h2>
+        <p id="instruction"></p>
+        <div id="choices" class="choices"></div>
+        <p id="feedback" class="feedback" role="status" hidden></p>
+        <div class="actions">
+          <button id="skip" class="quiet" type="button" hidden>跳过操作</button>
+          <button id="watch" class="secondary" type="button"></button>
+          <button id="next" class="primary" type="button"></button>
+        </div>
+      </section>
+    </div>
+    <nav class="step-nav" aria-label="课程导航" id="nav" hidden>
+      <button id="back" class="quiet" type="button">上一步</button>
+      <details><summary>查看步骤</summary><ol id="step-list"></ol></details>
+    </nav>
+  </main>
+</body>
+</html>
