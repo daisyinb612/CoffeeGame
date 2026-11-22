@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "file_name": "interaction-04.png",
+    "file_token": "Nr4mbW0hio9U9XxWIV2cwfWYnLJ",
+    "set_cell_range": {
+      "revision": 48,
+      "updated_cells_count": 1
+    }
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.72",
+      "latest": "1.0.100",
+      "message": "lark-cli 1.0.100 available, current 1.0.72, run: lark-cli update"
+    }
+  }
+}
