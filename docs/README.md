@@ -8,3 +8,4 @@
 
 - [原片时间线复核](./video-review-2026-11-20.md)
 - [动作时间索引](./video-timeline.json)
+- [视频理解工作流](./video-workflow.md)

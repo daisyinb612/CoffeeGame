@@ -1,5 +1,0 @@
-{
-  "url": "https://api.openai.com/v1",
-  "key": "YOUR_GPT_API_KEY",
-  "model": "gpt-6.2-sol"
-}
