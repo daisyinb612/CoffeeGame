@@ -4,9 +4,12 @@ config.google.local.json
 __pycache__/
 *.upload.json
 *.upload_session.json
-/demo/media/
+/demo/media/*
+!/demo/media/*.jpg
+!/demo/media/*.mp4
 
 .DS_Store
 /test/
 /source/*
 !/source/README.md
+!/source/冰美式第一人称视频.MP4

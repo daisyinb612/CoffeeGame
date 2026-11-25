@@ -1,0 +1,46 @@
+.service-game { display: grid; gap: 8px; }
+.service-bench {
+  position: relative; height: clamp(142px, 29svh, 230px); overflow: hidden;
+  border-radius: 12px; background: #eeeae0; isolation: isolate;
+}
+#actions .service-bench button {
+  position: absolute; padding: 0; line-height: 1; min-height: 44px;
+  transform: translateX(-50%); transition: left .35s, top .35s, transform .35s;
+}
+#actions .service-bench .service-tray {
+  left: 53%; top: 36%; width: 73%; height: 48%;
+  border: 4px solid #645447; border-radius: 17% / 23%;
+  background: #d3bda4; box-shadow: inset 0 0 0 2px #f0d8bd, 0 4px 0 #524237;
+}
+.service-tray:not([data-clean])::after {
+  content: ""; display: block; position: absolute; left: 21%; top: 32%; width: 32%; height: 30%;
+  border-radius: 50%; border: 2px solid #77634d80; border-left-color: transparent;
+  background: #8a6c441f; transform: rotate(-12deg);
+}
+#actions .service-bench .service-cup {
+  left: 16%; top: 8%; width: 16%; height: 45%; border: 2px solid #9fa8a5;
+  border-radius: 7px 7px 10px 10px; z-index: 2;
+  background: linear-gradient(90deg,#ffffff65,transparent 26% 76%,#ffffff85),
+    linear-gradient(#eef2ec 0 18%,#a76847 19%,#643d2a 24%,#503122 91%,#b3a294 93%);
+  box-shadow: 0 3px 4px #56473238;
+}
+.service-cup:not([data-clean])::after {
+  content: ""; position: absolute; width: 22%; height: 43%; right: -4px; top: 11%;
+  border-radius: 50%; background: #57311c; transform: rotate(8deg);
+}
+#actions .service-bench .service-cup[data-placed] { left: 53%; top: 22%; }
+#actions .service-bench :is(.service-straw,.service-napkin) {
+  display: grid; place-items: center; top: 5%; width: 23%; height: 23%; z-index: 1;
+  border: 1px solid #a2988c; background: #fdfaf1;
+}
+#actions .service-bench .service-straw { left: 80%; }
+#actions .service-bench .service-napkin { left: 48%; }
+.service-straw::after, .service-napkin::after { font-size: .8rem; }
+.service-straw::after { content: "吸管"; }
+.service-napkin::after { content: "纸巾"; }
+#actions .service-bench .service-straw[data-placed] { left: 77%; top: 46%; width: 8%; height: 30%; }
+#actions .service-bench .service-napkin[data-placed] { left: 31%; top: 51%; width: 19%; transform: translateX(-50%) rotate(-9deg); }
+.service-straw[data-placed]::after { writing-mode: vertical-rl; }
+.service-bench[data-delivered] button { translate: 0 -8px; cursor: default; }
+.service-status { margin: 0; min-height: 2.5em; color: var(--muted); font-size: .875rem; }
+#actions .service-bench button:focus-visible { z-index: 4; }

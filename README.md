@@ -1,18 +1,43 @@
-# CoffeeGame · 冰美式制作互动教学
+# CoffeeGame V1 · 冰美式制作互动教学
 
 **[打开 Demo（本机预览）](http://127.0.0.1:8765/)**
 
-用手机竖屏观看第一人称教学视频。41 个关卡直接叠在原片画面上，答对继续播放，答错可以看提示并重试。第一关跟着老师认器具，后面还有滑动搅拌。原声默认静音，中文字幕默认显示。
+V1 是首个可玩的版本。手机竖屏播放第一人称原片，按视频顺序暂停做 19 个互动关卡，答完从暂停处继续。原声默认静音，中文字幕默认显示。右上角「设置 → 关卡选择」可以跳到指定关卡。
+
+| 关卡 | 内容 |
+| --- | --- |
+| 1–4 | 准备及个人卫生 |
+| 5 | 冰杯预处理 |
+| 6–10 | 手柄处理 |
+| 11–13 | 咖啡机萃取 |
+| 14 | 调配与搅拌 |
+| 15–16 | 成品与摆盘出品、出品服务表达 |
+| 17–19 | 清洁器具、清洁工作台面、工具归位 |
+
+V1 以练习和过关为主。阶段评分表满分 20 分，当前尚未实现完整的阶段计分和总分汇总。已有的备料、撒漏和归位检查按 V1 的现有范围运行。
 
 ## 本地启动
 
-预览链接在运行服务的设备上打开。第一次使用时，按[素材说明](source/README.md)放入原片，再在项目根目录运行：
+安装 Git LFS 后在项目根目录运行以下命令。原片位于 `source/冰美式第一人称视频.MP4`，约 10 分钟、724 MiB，编码为 HEVC。需要 Python 3 和支持该编码的浏览器。
 
 ```sh
-python3 demo/build_media.py --story
+git lfs install --local
+git lfs pull
 python3 demo/serve.py
 ```
 
-生成封面需要 FFmpeg。之后可直接运行 `python3 demo/serve.py`。视频使用本地 HEVC 原片。
+打开上方本机预览链接。缺少封面时，安装 FFmpeg 后运行 `python3 demo/build_media.py --story`。结束预览服务可在终端按 Ctrl+C。
 
-[Demo 说明](demo/README.md) · [项目文档](docs/README.md) · [视频理解工作流](docs/video-workflow.md)
+## 素材和代码去哪找
+
+| 要找什么 | 入口 |
+| --- | --- |
+| 原片、练习视频和 Git LFS 下载方式 | [素材说明](source/README.md) |
+| 原声字幕与每个动作在原片的时间 | [中文字幕](demo/captions/story-zh.vtt)、[动作时间索引](docs/video-timeline.json)、[原片复核](docs/video-review-2026-11-20.md) |
+| 关卡编号、暂停时间、题目和玩法 | [关卡配置](demo/story.js)、[短剧控制器](demo/drama.js)、[玩法代码索引](demo/README.md#调整课程) |
+| 图片、练习图、3D 依赖 | [demo/assets/](demo/assets/)、[demo/vendor/](demo/vendor/) |
+| 拍摄清单、关卡草案、早期设计和分析流程 | [文档索引](docs/README.md) |
+
+接手时先看 `demo/story.js`，用关卡的 `at` 定位原片秒数，用 `ref` 对照动作索引，再按 `game` 找到玩法代码。短剧首页是 `demo/index.html`，旧分步练习的入口是 `demo/practice.html`。
+
+原片和 `demo/media/` 里的 MP4 由 Git LFS 管理。封面、配图、音效、字幕、3D 依赖和参考文档随仓库保存。`test/` 下的本地分析中间文件由 Git 忽略。

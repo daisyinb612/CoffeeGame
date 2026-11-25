@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#171717">
   <title>冰美式制作 · CoffeeGame</title>
-  <link rel="stylesheet" href="drama.css?v=inventory">
-  <script type="module" src="drama.js?v=inventory"></script>
+  <link rel="stylesheet" href="drama.css?v=cleanup">
+  <link rel="stylesheet" href="extraction.css">
+  <link rel="stylesheet" href="service-tray.css">
+  <script type="module" src="drama.js?v=cleanup"></script>
 </head>
 <body>
   <main class="stage" id="stage" data-mode="dialogue" aria-label="冰美式制作互动教学">
@@ -14,21 +16,40 @@
       <track id="caption-track" kind="captions" srclang="zh-CN" label="简体中文" src="captions/story-zh.vtt?v=opening2">
     </video>
     <div id="captions" class="captions" hidden><span></span></div>
-    <div id="controls" class="controls" aria-label="播放控制" hidden>
-      <button id="pause" type="button">暂停</button>
-      <button id="sound" type="button" aria-pressed="false">原声 · 关</button>
+    <div class="controls" role="group" aria-label="短剧控制">
+      <button id="pause" type="button" hidden>暂停</button>
+      <button id="sound" type="button" aria-pressed="false" hidden>原声 · 关</button>
+      <button id="settings-button" type="button" aria-label="设置" aria-haspopup="dialog" aria-controls="settings">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 2h4l.7 3 1.7.9 2.9-.9 2 3.5-2.1 2.1v2.8l2.1 2.1-2 3.5-2.9-.9-1.7.9-.7 3h-4l-.7-3-1.7-.9-2.9.9-2-3.5 2.1-2.1v-2.8L2.7 8.5l2-3.5 2.9.9 1.7-.9z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
     </div>
     <div class="scene-overlay" aria-labelledby="scene-title">
       <div class="scene-sheet">
         <div class="scene-copy">
           <h1 id="scene-title" class="visually-hidden" tabindex="-1">冰美式制作</h1>
           <p id="speaker"></p>
-          <p id="line" role="status"></p>
+          <p id="line" role="status" tabindex="-1"></p>
           <p id="feedback" role="status"></p>
         </div>
         <div id="actions"></div>
       </div>
     </div>
+    <dialog id="settings" aria-labelledby="settings-title">
+      <div class="settings-header">
+        <h2 id="settings-title" tabindex="-1">设置</h2>
+        <button id="close-settings" type="button" aria-label="关闭设置">关闭</button>
+      </div>
+      <div id="settings-menu">
+        <button id="choose-level" type="button">关卡选择 <span aria-hidden="true">›</span></button>
+      </div>
+      <div id="settings-levels" hidden>
+        <div id="level-list" class="level-list"></div>
+        <button id="back-to-settings" type="button">返回设置</button>
+      </div>
+    </dialog>
   </main>
 </body>
 </html>
