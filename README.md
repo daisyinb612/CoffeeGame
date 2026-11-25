@@ -1,6 +1,22 @@
 # CoffeeGame V1 · 冰美式制作互动教学
 
-**[打开 Demo（本机预览）](http://127.0.0.1:8765/)**
+## 快速启动
+
+先安装 Git LFS 和 Python 3，使用支持 HEVC 的浏览器。第一次在电脑上打开 V1，复制以下命令：
+
+```sh
+git clone --branch codex/interactive-coffee-demo https://github.com/daisyinb612/CoffeeGame.git
+cd CoffeeGame
+git lfs install --local
+git lfs pull
+python3 demo/serve.py
+```
+
+服务启动后，打开 [本机短剧](http://127.0.0.1:8765/)。已克隆并下载素材时，在仓库根目录运行 `python3 demo/serve.py` 即可。终端按 Ctrl+C 停止服务。
+
+原片位于 `source/冰美式第一人称视频.MP4`，约 724 MiB。若文件只有一百多字节，请重新运行 `git lfs pull`。如果 8765 端口已被占用，可运行 `python3 demo/serve.py --port 8766`，再访问 [备用本机端口](http://127.0.0.1:8766/)。
+
+## V1 内容
 
 V1 是首个可玩的版本。手机竖屏播放第一人称原片，按视频顺序暂停做 19 个互动关卡，答完从暂停处继续。原声默认静音，中文字幕默认显示。右上角「设置 → 关卡选择」可以跳到指定关卡。
 
@@ -15,18 +31,6 @@ V1 是首个可玩的版本。手机竖屏播放第一人称原片，按视频�
 | 17–19 | 清洁器具、清洁工作台面、工具归位 |
 
 V1 以练习和过关为主。阶段评分表满分 20 分，当前尚未实现完整的阶段计分和总分汇总。已有的备料、撒漏和归位检查按 V1 的现有范围运行。
-
-## 本地启动
-
-安装 Git LFS 后在项目根目录运行以下命令。原片位于 `source/冰美式第一人称视频.MP4`，约 10 分钟、724 MiB，编码为 HEVC。需要 Python 3 和支持该编码的浏览器。
-
-```sh
-git lfs install --local
-git lfs pull
-python3 demo/serve.py
-```
-
-打开上方本机预览链接。缺少封面时，安装 FFmpeg 后运行 `python3 demo/build_media.py --story`。结束预览服务可在终端按 Ctrl+C。
 
 ## 素材和代码去哪找
 
