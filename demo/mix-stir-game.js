@@ -117,7 +117,21 @@ class MixStirGame extends HTMLElement {
     stirrer.setAttribute("aria-label", "使用后的搅拌棒，拖到水槽中");
     stirrer.hidden = true;
 
-    arena.append(counter, sink, spill, cup, stream, pitcher, stirZone, stirrer);
+    const pourHint = document.createElement("div");
+    pourHint.className = "mix-gesture-hint mix-pour-hint";
+    pourHint.setAttribute("aria-hidden", "true");
+    pourHint.innerHTML = '<span class="mix-tap-dot"></span>';
+    const stirHint = document.createElement("div");
+    stirHint.className = "mix-gesture-hint mix-stir-hint";
+    stirHint.setAttribute("aria-hidden", "true");
+    stirHint.innerHTML = '<svg viewBox="0 0 120 64" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M106.36 37.69 A48 22 0 1 1 107.27 28.18" stroke-dasharray="3 5"/><path d="M100.77 23.18L107.27 28.18L108.77 20.18"/><circle class="mix-gesture-dot" cx="60" cy="32" r="4" fill="currentColor" stroke="#faf7f2" stroke-width="2"/></svg>';
+    const sinkHint = document.createElement("div");
+    sinkHint.className = "mix-gesture-hint mix-sink-hint";
+    sinkHint.setAttribute("aria-hidden", "true");
+    sinkHint.innerHTML = '<span class="mix-tap-dot"></span>';
+    arena.append(counter, sink, spill, cup, stream, pitcher, stirZone, stirrer, pourHint, stirHint, sinkHint);
+    pitcher.addEventListener("pointerdown", () => { pourHint.hidden = true; });
+    pitcher.addEventListener("pointercancel", () => { pourHint.hidden = false; });
 
     const footer = document.createElement("div");
     footer.className = "mix-footer";
@@ -151,6 +165,7 @@ class MixStirGame extends HTMLElement {
     const miss = message => {
       spill.dataset.visible = "true";
       status.textContent = message;
+      pourHint.hidden = false;
       window.setTimeout(() => {
         delete spill.dataset.visible;
       }, 800);
@@ -202,6 +217,7 @@ class MixStirGame extends HTMLElement {
       motion.y = y;
       motion.angle += delta;
       swept += Math.abs(delta);
+      if (swept > .12) stirHint.hidden = true;
       const progress = Math.min(1, (swept + .00001) / (fullTurn * 2));
       stirZone.style.setProperty("--stir-progress", progress * 100 + "%");
       stirZone.style.setProperty("--stir-turn", motion.angle + "rad");
@@ -246,6 +262,7 @@ class MixStirGame extends HTMLElement {
     stirZone.onclick = event => { if (event.detail === 0) stirOnce(); };
     function stirOnce() {
       if (tapFrame || gameFinished()) return;
+      stirHint.hidden = true;
       const start = performance.now(), from = Math.atan2(motion.y, motion.x);
       let previous = 0;
       function animate(now) {
@@ -281,7 +298,7 @@ class MixStirGame extends HTMLElement {
 
     phase("pour");
     this.hidden = false;
-    import("./mix-stir-scene.js?v=unified-counter").then(({ mountMixScene }) => {
+    import("./mix-stir-scene.js?v=shared-coffee-1").then(({ mountMixScene }) => {
       this.releaseScene = mountMixScene(this, arena);
     }).catch(() => { /* The same controls work in the illustrated view. */ });
   }

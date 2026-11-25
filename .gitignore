@@ -13,3 +13,6 @@ __pycache__/
 /source/*
 !/source/README.md
 !/source/冰美式第一人称视频.MP4
+
+# Local design review artifacts
+.impeccable/

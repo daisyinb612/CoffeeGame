@@ -123,7 +123,7 @@ button {
 
 mix-stir-game { display: grid; gap: 9px; }
 .mix-arena canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-mix-stir-game[data-webgl] .mix-arena > :not(canvas, .mix-spill) { opacity: 0; }
+mix-stir-game[data-webgl] .mix-arena > :not(canvas, .mix-spill, .mix-gesture-hint) { opacity: 0; }
 .scene-sheet:has(mix-stir-game) #speaker { padding-inline-end: 110px; }
 .scene-sheet:has(mix-stir-game) #line { min-height: 2.88em; }
 .mix-arena:focus-within { outline: 2px solid #977c60; outline-offset: 2px; }
@@ -497,3 +497,166 @@ ice-scoop-game:not([data-phase="inspection"]) .ice-scoop-actions { grid-template
 @media (max-height: 600px) {
   .handle-bench-canvas { aspect-ratio: 1.29; }
 }
+
+/* First-level UI review. Keep instant advancement after a correct answer. */
+.stage[data-activity="inventory"] .scene-overlay {
+  background: rgb(23 20 17 / 46%);
+  justify-content: end;
+  padding-top: 64px;
+}
+.stage[data-activity="inventory"] .scene-sheet {
+  max-height: 100%;
+  overflow-y: auto;
+  scrollbar-color: var(--rule) var(--paper);
+  gap: 16px;
+}
+.stage[data-activity="inventory"] #line {
+  font-size: clamp(1.0625rem, 4.4vw, 1.25rem);
+}
+.inventory-card figure,
+.inventory-card figure:has(coffee-object:not([hidden])) {
+  background: transparent;
+}
+.inventory-card figcaption { margin-top: 10px; }
+.inventory-model-hint {
+  inset: auto 0 0;
+  font-size: .75rem;
+  color: #51483e;
+}
+#actions .inventory-answer {
+  min-height: 56px;
+  background: #eee7dd;
+  border: 0;
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.inventory-feedback {
+  margin: 0;
+  min-height: 1.5em;
+  padding: 0;
+  border-radius: 8px;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.inventory-feedback:not(:empty) {
+  color: #745033;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.inventory-feedback:not(:empty)::before {
+  content: "";
+  flex: 0 0 18px;
+  height: 18px;
+  margin-top: 1px;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6M10 21h4M9 15.5c0-2-3-3-3-6a6 6 0 0 1 12 0c0 3-3 4-3 6V18H9z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+#actions .inventory-answer {
+  transition: background-color 120ms ease, color 120ms ease, transform 80ms ease;
+}
+@media (hover: hover) {
+  #actions .inventory-answer:hover { background: #dfd2c1; }
+}
+#actions .inventory-answer[aria-pressed="true"],
+#actions .inventory-answer[data-retry] {
+  background: #69513e;
+  color: #fffdfa;
+  outline: none;
+}
+#actions .inventory-answer:active {
+  background: #483628;
+  color: #fffdfa;
+  transform: scale(.97);
+}
+#actions .inventory-answer:focus-visible {
+  outline: 3px solid #69513e;
+  outline-offset: 3px;
+}
+#actions .inventory-answer:disabled {
+  background: #eee7dd;
+  color: #8b8177;
+  cursor: default;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  #actions .inventory-answer { transition: none; }
+}
+
+/* Review spacing adjustments relative to the 12px inventory grid gap. */
+.inventory-feedback + figure { margin-top: -9px; }
+.inventory-answers { margin-top: 8px; }
+
+/* Level 14 contextual gestures sit above the scene without intercepting input. */
+.mix-gesture-hint {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  color: #286a65;
+  opacity: .72;
+  filter: drop-shadow(0 1px 1px #faf7f2);
+  text-align: center;
+  font-size: .8125rem;
+  font-weight: 600;
+}
+.mix-pour-hint {
+  left: 26%;
+  top: 54%;
+  translate: -50% -50%;
+  display: grid;
+  justify-items: center;
+}
+mix-stir-game[data-webgl] .mix-pour-hint { top: 76%; left: 31%; }
+
+.mix-stir-hint {
+  left: var(--cup-center);
+  top: 31%;
+  width: 34%;
+  translate: -50% 0;
+}
+.mix-stir-hint svg { display: block; width: 100%; overflow: visible; }
+.mix-gesture-dot {
+  offset-path: path("M108 32 A48 22 0 1 1 12 32 A48 22 0 1 1 108 32");
+  offset-anchor: 60px 32px;
+  animation: mix-circle-cue 2.4s linear 3 forwards;
+}
+@keyframes mix-circle-cue {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+mix-stir-game:not([data-phase="pour"]) .mix-pour-hint,
+mix-stir-game:not([data-phase="stir"]) .mix-stir-hint { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .mix-gesture-dot { animation: none; }
+  .mix-tap-dot { animation: none; }
+}
+
+.mix-sink-hint {
+  left: var(--cup-center);
+  top: 49%;
+  translate: -50% -50%;
+}
+ .mix-tap-dot {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #fffdfa;
+  border-radius: 50%;
+  background: #286a65;
+  box-shadow: 0 2px 5px #183e3b40;
+  animation: mix-tap-float 1.8s ease-in-out 3;
+}
+@keyframes mix-tap-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+mix-stir-game:not([data-phase="sink"]) .mix-sink-hint { display: none; }
+.mix-gesture-dot { animation-play-state: paused; }
+mix-stir-game[data-phase="stir"] .mix-gesture-dot { animation-play-state: running; }
+@media (prefers-reduced-motion: reduce) {
+  .mix-tap-dot, .mix-gesture-dot { animation: none; }
+}
+mix-stir-game[data-phase="pour"] .mix-arena::after { opacity: .72; }

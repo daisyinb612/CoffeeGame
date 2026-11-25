@@ -1,7 +1,8 @@
-import { checkpoints } from "./story.js?v=cleanup";
-import { showCleanup } from "./cleanup-game.js";
+import { checkpoints } from "./story.js?v=cloth-match-2";
+import { showCleanup } from "./cleanup-game.js?v=return-assets-3";
+import { showCleanupDiscovery } from "./cleanup-discovery.js?v=discovery-toolbar-2";
 import { showExtraction, createExtractionRun } from "./extraction-game.js";
-import { showServiceTray } from "./service-tray.js";
+import { showServiceTray } from "./service-tray.js?v=physical-serving-2";
 import { showHandlePractice } from "./handle-practice.js?v=brush-gesture";
 
 const get = (id) => document.getElementById(id);
@@ -123,7 +124,7 @@ function inventoryControls(items, onComplete) {
   const image = document.createElement("img");
   const modelHint = document.createElement("span");
   modelHint.className = "inventory-model-hint";
-  modelHint.textContent = "拖动旋转";
+  modelHint.textContent = "可拖动查看";
   const label = document.createElement("figcaption");
   label.id = "inventory-name";
   label.tabIndex = -1;
@@ -141,8 +142,14 @@ function inventoryControls(items, onComplete) {
   meter.className = "inventory-meter";
   meter.append(steps, progress);
 
+  const itemFeedback = document.createElement("p");
+  itemFeedback.className = "inventory-feedback";
+  itemFeedback.setAttribute("role", "status");
+
   function showItem() {
     const item = items[index];
+    line.textContent = "刚才准备时，有拿出或摆好这件物品吗？";
+    answers.querySelectorAll("button").forEach(control => control.setAttribute("aria-pressed", "false"));
     visual.querySelector("coffee-object")?.remove();
     image.hidden = false;
     image.src = `assets/inventory/${item.photo}.jpg?v=video-models`;
@@ -162,12 +169,16 @@ function inventoryControls(items, onComplete) {
 
   function answer(present, control) {
     const item = items[index];
+    answers.querySelectorAll("button").forEach(option => {
+      option.setAttribute("aria-pressed", String(option === control));
+    });
     answers.querySelector("[data-retry]")?.removeAttribute("data-retry");
     if (present !== item.needed) {
       control.dataset.retry = "";
-      feedback.textContent = item.hint;
+      itemFeedback.textContent = item.hint;
       return;
     }
+    itemFeedback.textContent = "";
     index++;
     if (index === items.length) {
       onComplete();
@@ -178,20 +189,16 @@ function inventoryControls(items, onComplete) {
     label.focus({ preventScroll: true });
   }
 
-  function answerButton(text, symbol, present) {
+  function answerButton(text, present) {
     const control = button(text, () => answer(present, control), "inventory-answer");
-    const icon = document.createElement("span");
-    icon.className = "inventory-answer-icon";
-    icon.setAttribute("aria-hidden", "true");
-    icon.textContent = symbol;
-    control.prepend(icon);
+    control.setAttribute("aria-pressed", "false");
     return control;
   }
 
   const answers = document.createElement("div");
   answers.className = "inventory-answers";
-  answers.append(answerButton("没有", "×", false), answerButton("有", "✓", true));
-  row.append(meter, figure, answers);
+  answers.append(answerButton("没有", false), answerButton("有", true));
+  row.append(meter, itemFeedback, figure, answers);
   showItem();
   return row;
 }
@@ -272,7 +279,7 @@ function showMixStirGame(checkpoint) {
   game.addEventListener("mix-game-complete", pass, { once: true });
   game.addEventListener("mix-game-prompt", event => { line.textContent = event.detail; });
   actions.replaceChildren(game);
-  import("./mix-stir-game.js?v=unified-counter").catch(fallback);
+  import("./mix-stir-game.js?v=serving-1").catch(fallback);
 }
 
 function showCheckpoint(checkpoint) {
@@ -294,13 +301,22 @@ function showCheckpoint(checkpoint) {
     showMixStirGame(checkpoint);
   } else if (checkpoint.game === "service-tray") {
     showServiceTray({ actions, line, button, pass });
+  } else if (checkpoint.game === "cleanup-discovery") {
+    stage.dataset.activity = "cleanup-discovery";
+    showCleanupDiscovery({ actions, button, pass: () => selectLevel(next + 1) });
   } else if (checkpoint.game?.startsWith("cleanup-")) {
     showCleanup(checkpoint.game, { actions, feedback, button, pass });
   } else if (checkpoint.game === "service-speech") {
-    const guidance = document.createElement("p");
-    guidance.className = "service-speech-guidance";
-    guidance.textContent = "请用自己的话说一小段简洁、礼貌的服务用语。可以问候顾客、介绍饮品，或请顾客慢用。";
-    actions.replaceChildren(guidance, button("我说完了，看示范", pass, "primary"));
+    stage.dataset.activity = "speech";
+    line.textContent = "把冰美式递给顾客，你会怎么说？";
+    const practice = document.createElement("service-speech");
+    practice.addEventListener("speech-complete", pass, { once: true });
+    actions.replaceChildren(practice);
+    import("./service-speech.js?v=recording-simple-1").catch(() => {
+      if (!practice.isConnected) return;
+      actions.replaceChildren(button("我说完了，看示范", pass, "primary"));
+      feedback.textContent = "录音练习未能加载，可以先口头练习，再看示范。";
+    });
   } else if (checkpoint.game?.startsWith("extract-")) {
     showExtraction(checkpoint.game, {
       actions, line, feedback, button, pass, run: extractionRun,

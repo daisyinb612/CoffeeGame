@@ -1,6 +1,7 @@
+import { createCoffeeDrink } from "./coffee-drink.js";
 import * as T from "./vendor/three.module.min.js";
 import { createInventoryModel } from "./inventory-models.js";
-import { makeGlass, addIce, createIceResources } from "./ice-models.js";
+import { createIceResources } from "./ice-models.js";
 
 export function mountMixScene(game, arena) {
   if (!game.isConnected) return;
@@ -21,37 +22,8 @@ export function mountMixScene(game, arena) {
     parent.add(obj);
     return obj;
   }
-  const cup = makeGlass();
-  const liquid = mesh(cup, new T.CylinderGeometry(.29, .269, .94, 64), 0xc9d8d5,
-    { transparent: true, opacity: .14, roughness: .07, depthWrite: false });
-  liquid.position.y = -.11;
-  const coffee = { value: 0 }, uniformity = { value: 0 }, swirl = { value: 0 };
-  liquid.material.onBeforeCompile = shader => {
-    Object.assign(shader.uniforms, { coffee, uniformity, swirl });
-    shader.vertexShader = "varying vec3 drinkPosition;\n" + shader.vertexShader.replace(
-      "#include <begin_vertex>", "#include <begin_vertex>\n drinkPosition = position;");
-    shader.fragmentShader = "varying vec3 drinkPosition; uniform float coffee, uniformity, swirl;\n" +
-      shader.fragmentShader.replace("#include <color_fragment>", `#include <color_fragment>
-        float h = drinkPosition.y / .94 + .5;
-        float angle = atan(drinkPosition.z, drinkPosition.x + .0001);
-        float curl = sin(angle * 3. + h * 7. - swirl) * .09 + sin(angle + h * 11. - swirl) * .07;
-        float plume = smoothstep(.55, 1., h + curl);
-        float strength = coffee * mix(plume, .73, uniformity);
-        diffuseColor.rgb = mix(vec3(.68,.77,.75), vec3(.085,.029,.012), sqrt(strength));
-        diffuseColor.a = .12 + .71 * strength;`);
-  };
-  const meniscus = mesh(cup, new T.TorusGeometry(.287,.007,8,72), 0xa6b8b4,
-    { metalness: .35, roughness: .13 });
-  meniscus.rotation.x = Math.PI / 2;
-  meniscus.position.y = .36;
-  const ice = new T.Group();
-  cup.add(ice);
-  addIce(ice, .81, resources, 2);
-  for (const iceMaterial of resources.ice) {
-    iceMaterial.transparent = true;
-    iceMaterial.opacity = .62;
-    iceMaterial.depthWrite = false;
-  }
+  const drink = createCoffeeDrink(resources);
+  const { cup, meniscus } = drink;
   const jug = createInventoryModel("measuring-cup").object;
   jug.scale.setScalar(.80);
   const shell = jug.children[0];
@@ -225,13 +197,7 @@ export function mountMixScene(game, arena) {
     const mixed = phase === "done" || phase === "sink";
     const blend = mixed ? 1 : progress / 100;
     const motion = game.stirMotion;
-    coffee.value = amount;
-    uniformity.value = blend;
-    swirl.value = motion.angle;
-    ice.rotation.y = motion.angle * .38;
-    liquid.scale.y = 1 + .14 * amount / .94;
-    liquid.position.y = -.58 + .47 * liquid.scale.y;
-    meniscus.position.y = .36 + .14 * amount;
+    drink.setState(amount, blend, motion.angle);
     ripple.visible = phase === "pouring" && elapsed > 630 && elapsed < 1840;
     const wave = ((elapsed + 90) % 460) / 460;
     ripple.position.y = meniscus.position.y + .006;

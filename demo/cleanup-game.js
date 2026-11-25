@@ -1,106 +1,98 @@
-const cleaning = [
-  ["手柄", "handle/grounds", ["把残渣敲进粉渣桶", "冲洗粉碗", "用咖色抹布擦干"]],
-  ["冲煮头", "handle/rinse", ["空排水，冲掉残粉"]],
-  ["沥水盘", "preparation/drip-tray", ["用蓝色抹布擦净沥水盘"]],
-  ["量杯", "inventory/measuring-cup", ["用流水冲洗量杯内侧和杯口", "用干净口布擦干量杯"]],
-  ["搅拌棒", "inventory/spoon", ["用流水冲洗搅拌棒", "用干净口布擦干搅拌棒"]],
-];
+import { showClothMatching } from "./cloth-matching.js?v=cloth-refined-1";
 
 const returnItems = [
-  ["手柄", "handle/basket-rinse", 0],
-  ["量杯", "inventory/measuring-cup", 0],
-  ["搅拌棒", "inventory/spoon", 1],
-  ["口布", "preparation/cup-cloth", 2],
+  ["手柄", "assets/return/portafilter-clean.png", 0],
+  ["量杯", "assets/return/measuring-cup-clean.png", 0],
+  ["搅拌棒", "assets/return/stirrer-clean.png", 1],
+  ["口布", "assets/cloths/white.png", 2],
 ];
-const locations = ["咖啡机顶部格栅", "工具筒", "口布架"];
+const locations = [
+  { name: "机顶格栅", photo: "assets/preparation/warm-rack.jpg", crop: "rack" },
+  { name: "工具筒", photo: "assets/return/utensil-holder.jpg", crop: "holder" },
+  { name: "口布架", photo: "assets/return/cloth-rack.jpg", crop: "cloth" },
+];
 
 export function showCleanup(kind, { actions, feedback, button, pass }) {
+  if (kind === "cleanup-cloths") {
+    showClothMatching({ actions, button, pass });
+    return;
+  }
+  feedback.textContent = "";
   const game = document.createElement("div");
-  game.className = "cleanup-game";
-  const status = document.createElement("p");
-  status.className = "cleanup-status";
-  status.setAttribute("role", "status");
-  const visual = document.createElement("div");
-  visual.className = "cleanup-visual";
-  const controls = document.createElement("div");
-  controls.className = "cleanup-controls";
+  game.className = "return-tools";
+  const meter = document.createElement("div");
+  meter.className = "inventory-meter";
+  const steps = document.createElement("div");
+  steps.className = "inventory-steps";
+  steps.setAttribute("aria-hidden", "true");
+  const marks = returnItems.map(() => document.createElement("span"));
+  steps.append(...marks);
+  const progress = document.createElement("p");
+  progress.className = "inventory-progress";
+  progress.setAttribute("aria-live", "polite");
+  meter.append(steps, progress);
+  const visual = document.createElement("figure");
+  visual.className = "return-object";
   const image = document.createElement("img");
   image.alt = "";
-  game.append(status, visual, controls);
+  const caption = document.createElement("figcaption");
+  visual.append(image, caption);
+  const controls = document.createElement("div");
+  controls.className = "return-options";
+  controls.setAttribute("role", "group");
+  controls.setAttribute("aria-label", "选择归位位置");
+  const hint = document.createElement("p");
+  hint.className = "inventory-feedback return-feedback";
+  hint.setAttribute("role", "status");
+  const next = button("下一步", () => {
+    if (!answered) return;
+    if (item === returnItems.length - 1) { pass(); return; }
+    item++;
+    showItem();
+  }, "primary");
+  game.append(meter, visual, controls, hint, next);
   actions.replaceChildren(game);
+  let item = 0, answered = false;
 
-  function setControls(...items) {
+  function showItem() {
     const restoreFocus = game.contains(document.activeElement);
-    controls.replaceChildren(...items);
-    if (restoreFocus) items[0]?.focus({ preventScroll: true });
-  }
-  function photo(path) {
-    image.src = `assets/${path}.jpg`;
-    visual.replaceChildren(image);
-  }
-  function finish(message) {
-    feedback.textContent = "";
-    status.textContent = message;
-    setControls(button("继续", pass, "primary"));
-  }
-
-  if (kind === "cleanup-tools") {
-    let item = 0, step = 0;
-    function showTool() {
-      const [name, path, steps] = cleaning[item];
-      status.textContent = `清洁${name} · ${item + 1} / ${cleaning.length}`;
-      photo(path);
-      setControls(button(steps[step], () => {
-        step++;
-        if (step === steps.length) {
-          step = 0;
-          item++;
-        }
-        if (item === cleaning.length) finish("五件器具都清洁好了。");
-        else showTool();
-      }, "primary"));
-    }
-    showTool();
-  } else if (kind === "cleanup-counter") {
-    const marks = ["咖啡渍", "残粉", "水渍"];
-    let remaining = marks.length;
-    const top = document.createElement("div");
-    top.className = "cleanup-counter";
-    const update = () => { status.textContent = `点台面上的污渍，用蓝布擦净。还剩 ${remaining} 处。`; };
-    for (const [index, name] of marks.entries()) {
-      const mark = button(name, () => {
-        if (mark.disabled) return;
-        mark.disabled = true;
-        mark.hidden = true;
-        remaining--;
-        if (remaining === 0) finish("台面擦干净了。");
-        else {
-          update();
-          top.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
-        }
-      }, "cleanup-mark");
-      mark.dataset.mark = index;
-      top.append(mark);
-    }
-    visual.append(top);
-    update();
-  } else {
-    let item = 0;
-    function showItem() {
-      const [name, path, destination] = returnItems[item];
-      status.textContent = `把${name}放回哪里？ · ${item + 1} / ${returnItems.length}`;
-      photo(path);
-      setControls(...locations.map((location, index) => button(location, () => {
+    answered = false;
+    next.disabled = true;
+    next.textContent = item === returnItems.length - 1 ? "继续" : "下一步";
+    const [name, path, destination] = returnItems[item];
+    progress.textContent = `${item + 1} / ${returnItems.length}`;
+    progress.setAttribute("aria-label", `第${item + 1}项，共${returnItems.length}项`);
+    marks.forEach((mark, index) => { mark.dataset.state = index < item ? "complete" : index === item ? "current" : "upcoming"; });
+    image.src = path;
+    caption.textContent = name;
+    hint.textContent = "已经洗净、擦干。点选它应该放回的位置。";
+    controls.replaceChildren(...locations.map((location, index) => {
+      const choice = button(location.name, () => {
+        if (answered) return;
+        controls.querySelector("[data-error]")?.removeAttribute("data-error");
         if (index !== destination) {
-          feedback.textContent = `这里不是${name}的收纳位置，再试一次。`;
+          choice.dataset.error = "";
+          hint.textContent = `这里不是${name}的收纳位置，再想想它原来放在哪里。`;
           return;
         }
-        feedback.textContent = "";
-        item++;
-        if (item === returnItems.length) finish("工具已归位，工作台恢复整洁。");
-        else showItem();
-      })));
-    }
-    showItem();
+        answered = true;
+        choice.setAttribute("aria-pressed", "true");
+        marks[item].dataset.state = "complete";
+        hint.textContent = `答对了。${name}放回${location.name}。`;
+        next.disabled = false;
+      }, "return-option");
+      choice.setAttribute("aria-pressed", "false");
+      const photo = document.createElement("span");
+      photo.className = `return-location-photo return-location-${location.crop}`;
+      const img = document.createElement("img");
+      img.src = location.photo;
+      img.alt = "";
+      img.draggable = false;
+      photo.append(img);
+      choice.prepend(photo);
+      return choice;
+    }));
+    if (restoreFocus) controls.firstElementChild?.focus({ preventScroll: true });
   }
+  showItem();
 }

@@ -14,7 +14,7 @@
 
 第 11–13 关练习空排水与擦拭、量杯去皮与就位、挂手柄与萃取。第 14 关是 3D 调配与搅拌实操（2 分）。07:08 调配示范结束后，把浓缩液量杯拖到冰水杯口，倒入时不能外洒；随后在杯中滑动搅匀，再把使用后的搅拌棒拖进水槽。点按器具也可完成相同步骤，方便键盘和辅助技术使用。
 
-右上角「设置」里可以打开「关卡选择」，按流程分组查看全部 19 关。最后三关练习清洁器具、清洁工作台面和工具归位。选中一关可直接定位到该题。
+右上角「设置」里可以打开「关卡选择」，按流程分组查看全部 19 关。第 17 关在生成的未清洁工作区画面中多选需要清洁的对象，统一检查并提供两级提示；通过后直接进入第 18 关四组用布配对，第 19 关通过位置图片三选一练习工具归位，答对后点击「下一步」继续。选中一关可直接定位到该题。
 
 ## 本地运行
 
@@ -28,7 +28,7 @@ python3 demo/serve.py
 
 ## 调整课程
 
-在 [story.js](story.js) 查看关卡。列表位置决定编号，`at` 是相对原片起点的秒数，`ref` 对应[动作时间索引](../docs/video-timeline.json)，`phase` 对应 [drama.js](drama.js) 的选关分组，`game` 对应具体玩法。`choices` 或 `rounds` 用于选择题，`null` 标记正确选项。调整暂停点时要一起核对[字幕](captions/story-zh.vtt)和[原片复核](../docs/video-review-2026-11-20.md)。第 16 关在服务原声示范之前暂停，让玩家先练表达。
+在 [story.js](story.js) 查看关卡。列表位置决定编号，`at` 是相对原片起点的秒数，`ref` 对应[动作时间索引](../docs/video-timeline.json)，`phase` 对应 [drama.js](drama.js) 的选关分组，`game` 对应具体玩法。`choices` 或 `rounds` 用于选择题，`null` 标记正确选项。调整暂停点时要一起核对[字幕](captions/story-zh.vtt)和[原片复核](../docs/video-review-2026-11-20.md)。第 16 关在服务原声示范之前暂停，让玩家先练表达。 支持录音练习，参考用语可通过「看看怎么说」展开；录音后可以回听、重录，再继续观看原片示范。录音通过浏览器麦克风权限获取，仅保留在当前关卡页面，离开后清除。第 16 关聚焦口头表达，不显示成品预览。
 
 | 关卡 | 实现入口 |
 | --- | --- |
@@ -37,8 +37,11 @@ python3 demo/serve.py
 | 7–10 | [handle-practice.js](handle-practice.js)，第 7 关的 3D 称粉在 [handle-scale-bench.js](handle-scale-bench.js) |
 | 11–13 | [extraction-game.js](extraction-game.js) |
 | 14 | [mix-stir-game.js](mix-stir-game.js) 的操作和 [mix-stir-scene.js](mix-stir-scene.js) 的 3D 场景 |
-| 15–16 | [service-tray.js](service-tray.js) 的摆盘与递送，`drama.js` 的服务表达 |
-| 17–19 | [cleanup-game.js](cleanup-game.js) |
+| 15 | [service-tray.js](service-tray.js) 与 [service-tray-scene.js](service-tray-scene.js) 的三维摆盘 |
+| 16 | [service-speech.js](service-speech.js) 的录音表达 |
+| 17 | [cleanup-discovery.js](cleanup-discovery.js) 的场景多选与提示 |
+| 18 | [cloth-matching.js](cloth-matching.js) 的四组图片配对，支持直接点布配对或把布拖到对象上 |
+| 19 | [cleanup-game.js](cleanup-game.js) 的工具归位 |
 
 `assets/inventory/` 放器具照片，`assets/preparation/` 放准备动作和布料参考，`assets/ice/`、`assets/handle/` 放各阶段的配图和练习素材。`vendor/` 放本地 Three.js 和许可证。
 
@@ -51,3 +54,5 @@ python3 demo/serve.py
 第一人称视频分步示范来自一项由 4 名孤独症青少年参加的餐食制作研究。课程采用这个思路来组织实拍素材，互动题、原声和播放节奏仍需请实际学习者试用。 [第一人称视频示范与视频提示对比研究](https://pmc.ncbi.nlm.nih.gov/articles/PMC7070110/)
 
 固定每一步的页面结构，提供具体简短的指令和可重复的示范。默认静音，使用者自行开始播放和进入下一步。 [W3C 认知无障碍设计指南](https://www.w3.org/TR/coga-usable/)
+
+本轮调整详见[2026-11-25 交互与 UI 修改说明](../docs/ui-changes-2026-11-25.md)。
