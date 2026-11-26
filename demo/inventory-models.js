@@ -20,7 +20,7 @@ function metal(roughness = .20) {
   return new THREE.MeshStandardMaterial({ color: "#dce2e4", metalness: .96, roughness, envMapIntensity: 1.22 });
 }
 
-function woodMaterial([red, green, blue], { grainContrast = 1, roughness = .86, bumpScale = .0045 } = {}) {
+export function woodMaterial([red, green, blue], { grainContrast = 1, roughness = .86, bumpScale = .0045 } = {}) {
   const canvas = document.createElement("canvas");
   canvas.width = 256;
   canvas.height = 256;

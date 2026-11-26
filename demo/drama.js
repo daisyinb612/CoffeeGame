@@ -1,9 +1,8 @@
-import { checkpoints } from "./story.js?v=cloth-match-2";
+import { checkpoints } from "./story.js?v=hannahl-integration";
 import { showCleanup } from "./cleanup-game.js?v=return-assets-3";
 import { showCleanupDiscovery } from "./cleanup-discovery.js?v=discovery-toolbar-2";
-import { showExtraction, createExtractionRun } from "./extraction-game.js";
 import { showServiceTray } from "./service-tray.js?v=physical-serving-2";
-import { showHandlePractice } from "./handle-practice.js?v=brush-gesture";
+import { showHandlePractice } from "./handle-practice.js?v=distribution-flow";
 
 const get = (id) => document.getElementById(id);
 const stage = get("stage");
@@ -33,7 +32,6 @@ const chapterTitles = new Map([
   [5, "清洁与工作台复位"],
 ]);
 let next = 0;
-let extractionRun = createExtractionRun();
 let state = "ready";
 let muted = true;
 let resumeAfterSettings = false;
@@ -64,6 +62,7 @@ function mode(value) {
 }
 
 function play() {
+  applySoundPreference();
   mode("playing");
   speaker.textContent = "";
   line.textContent = "";
@@ -217,7 +216,7 @@ function showPreparationRounds(checkpoint) {
 
     line.textContent = round.prompt;
     const grid = document.createElement("div");
-    grid.className = "preparation-choices";
+    grid.className = round.choices.some(choice => choice[2]) ? "preparation-choices" : "text-choices";
     if (round.illustrated) grid.classList.add("illustrated-choices");
     for (const [label, hint, photo, description] of round.choices) {
       const control = button(label, () => {
@@ -231,12 +230,14 @@ function showPreparationRounds(checkpoint) {
           feedback.textContent = hint;
         }
       });
-      const image = document.createElement("img");
-      image.src = `assets/${photo}.jpg?v=preparation-course`;
-      image.alt = "";
       if (description) control.setAttribute("aria-label", `${label}，${description}`);
-      if (round.illustrated) control.dataset.iceExample = photo.split("/").at(-1);
-      control.prepend(image);
+      if (photo) {
+        const image = document.createElement("img");
+        image.src = `assets/${photo}.jpg?v=preparation-course`;
+        image.alt = "";
+        if (round.illustrated) control.dataset.iceExample = photo.split("/").at(-1);
+        control.prepend(image);
+      }
       grid.append(control);
     }
     if (round.illustrated) {
@@ -266,7 +267,7 @@ function showIceScoopGame(checkpoint) {
   game.addEventListener("ice-game-prompt", event => { line.textContent = event.detail; });
   game.addEventListener("ice-game-unavailable", fallback, { once: true });
   actions.replaceChildren(game);
-  import("./ice-scoop-game.js?v=faucet-flow").catch(fallback);
+  import("./ice-scoop-game.js?v=water-guide").catch(fallback);
 }
 
 function showMixStirGame(checkpoint) {
@@ -312,15 +313,10 @@ function showCheckpoint(checkpoint) {
     const practice = document.createElement("service-speech");
     practice.addEventListener("speech-complete", pass, { once: true });
     actions.replaceChildren(practice);
-    import("./service-speech.js?v=recording-simple-1").catch(() => {
+    import("./service-speech.js?v=recording-oral-fallback").catch(() => {
       if (!practice.isConnected) return;
       actions.replaceChildren(button("我说完了，看示范", pass, "primary"));
       feedback.textContent = "录音练习未能加载，可以先口头练习，再看示范。";
-    });
-  } else if (checkpoint.game?.startsWith("extract-")) {
-    showExtraction(checkpoint.game, {
-      actions, line, feedback, button, pass, run: extractionRun,
-      retryPrep: () => selectLevel(checkpoints.findIndex(level => level.game === "extract-flush")),
     });
   } else if (checkpoint.game?.startsWith("handle-")) {
     showHandlePractice(checkpoint.game.slice("handle-".length), { actions, feedback, button, pass });
@@ -329,10 +325,18 @@ function showCheckpoint(checkpoint) {
   } else if (checkpoint.gesture) {
     actions.replaceChildren(...swipeControl());
   } else {
-    actions.replaceChildren(...checkpoint.choices.map(([label, hint]) => button(label, () => {
+    const choices = checkpoint.choices.map(([label, hint]) => button(label, () => {
       if (hint === null) pass();
       else feedback.textContent = `提示　${hint}`;
-    })));
+    }));
+    if (checkpoint.photo) {
+      const photo = document.createElement("img");
+      photo.className = "question-photo";
+      photo.src = `assets/${checkpoint.photo.path}.jpg`;
+      photo.alt = checkpoint.photo.alt;
+      choices.unshift(photo);
+    }
+    actions.replaceChildren(...choices);
   }
   // Focus the prompt so keyboard and screen reader users hear the question first.
   title.focus({ preventScroll: true });
@@ -353,7 +357,6 @@ function showSettingsMenu() {
 
 function selectLevel(index) {
   const checkpoint = checkpoints[index];
-  extractionRun = createExtractionRun(checkpoint.game);
   resumeAfterSettings = false;
   next = index;
   settings.close();
@@ -412,7 +415,6 @@ settings.addEventListener("close", () => {
 });
 
 function start() {
-  extractionRun = createExtractionRun();
   next = 0;
   film.currentTime = lessonStart;
   play();
@@ -464,13 +466,25 @@ pause.onclick = () => {
     pause.textContent = "继续播放";
   }
 };
-sound.onclick = () => {
-  muted = !muted;
+function applySoundPreference() {
+  // Keep the HTML default and the live media state in sync across seeks and reloads.
+  film.defaultMuted = muted;
   film.muted = muted;
-  sound.setAttribute("aria-pressed", String(!muted));
-  sound.textContent = muted ? "原声 · 关" : "原声 · 开";
+  updateSoundButton();
+}
+function updateSoundButton() {
+  const audible = !film.muted && film.volume > 0;
+  sound.setAttribute("aria-pressed", String(audible));
+  sound.textContent = audible ? "原声 · 开" : "原声 · 关";
+}
+film.addEventListener("volumechange", updateSoundButton);
+sound.onclick = () => {
+  muted = !film.muted && film.volume > 0;
+  if (!muted && film.volume === 0) film.volume = 1;
+  applySoundPreference();
+  if (!muted && state === "playing" && film.paused) play();
 };
-film.muted = muted;
+applySoundPreference();
 mode("ready");
 speaker.textContent = "做一杯冰美式";
 line.textContent = "先看看做冰美式要准备什么，再一起做一杯。";

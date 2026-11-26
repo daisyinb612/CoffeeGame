@@ -1,6 +1,6 @@
 import * as THREE from "./vendor/three.module.min.js";
 import { createStudioEnvironment } from "./inventory-models.js?v=ice-3d";
-import { buildScaleModels } from "./handle-scale-models.js?v=brush-gesture";
+import { buildScaleModels } from "./handle-scale-models.js?v=aligned-keys";
 
 const minimum = 178;
 const maximum = 182;
@@ -68,13 +68,14 @@ class HandleScaleBench extends HTMLElement {
     const scene = new THREE.Scene();
     const input = new AbortController();
     const events = { signal: input.signal };
-    let renderer, environment, observer, frame = 0, dragFrame = 0, brushFrame = 0;
+    let renderer, environment, observer, frame = 0, dragFrame = 0, brushFrame = 0, releaseTare;
     this.cleanup = () => {
       input.abort();
       observer?.disconnect();
       cancelAnimationFrame(frame);
       cancelAnimationFrame(dragFrame);
       cancelAnimationFrame(brushFrame);
+      clearTimeout(releaseTare);
       const geometry = new Set(), materials = new Set();
       scene.traverse(part => {
         if (part.geometry) geometry.add(part.geometry);
@@ -82,7 +83,10 @@ class HandleScaleBench extends HTMLElement {
         if (part.isLight) part.shadow?.dispose();
       });
       for (const item of geometry) item.dispose();
-      for (const item of materials) item.dispose();
+      for (const item of materials) {
+        item.map?.dispose();
+        item.dispose();
+      }
       environment?.dispose();
       renderer?.dispose();
       renderer?.forceContextLoss();
@@ -120,10 +124,10 @@ class HandleScaleBench extends HTMLElement {
       counter.receiveShadow = true;
       scene.add(counter);
 
-      const { handle, grounds, docks, markers, updateSpill, updateBrushedPowder } = buildScaleModels(scene);
+      const { handle, grounds, docks, markers, keys, outlet, updateSpill, updateBrushedPowder } = buildScaleModels(scene);
       const stream = new THREE.Mesh(new THREE.CylinderGeometry(.011, .024, 1, 12),
         new THREE.MeshBasicMaterial({ color: "#59412a" }));
-      stream.position.copy(docks.grinder);
+      stream.position.copy(outlet);
       stream.visible = false;
       scene.add(stream);
       scene.traverse(part => {
@@ -162,15 +166,19 @@ class HandleScaleBench extends HTMLElement {
       readout.className = "handle-bench-readout";
       readout.setAttribute("aria-label", "电子秤读数");
       readout.setAttribute("aria-live", "polite");
-      const tare = makeButton("去皮", "handle-bench-device", () => tareScale());
-      const grinder = makeButton("接粉", "handle-bench-device", event => {
+      const tare = makeButton("去皮", "handle-bench-device handle-bench-key", () => tareScale());
+      const grinder = makeButton("接粉", "handle-bench-device handle-bench-key", event => {
         if (!skipClick || event.detail === 0) doseOnce();
+      });
+      const keysOnScreen = [[tare, keys.tare], [grinder, keys.grind]].map(([button, model]) => {
+        const glow = document.createElement("span");
+        glow.className = "handle-key-glow";
+        glow.setAttribute("aria-hidden", "true");
+        return { button, model, glow };
       });
       const remove = makeButton("拨粉", "handle-bench-device", () => removePowder());
       const gesture = brushGesture();
       remove.append(gesture);
-      tare.dataset.mark = "去皮";
-      grinder.dataset.mark = "接粉";
       remove.setAttribute("aria-label", "用手拨一点粉");
       const confirm = makeButton("确认粉量", "primary", () => checkWeight());
       const accessible = document.createElement("div");
@@ -178,7 +186,7 @@ class HandleScaleBench extends HTMLElement {
       for (const [name, label] of Object.entries(stationLabels)) {
         accessible.append(makeButton(`手柄移到${label}`, "", () => park(name)));
       }
-      wrap.append(canvas, readout, tare, grinder, remove);
+      wrap.append(canvas, readout, ...keysOnScreen.map(key => key.glow), tare, grinder, remove);
       this.className = "handle-practice";
       this.append(wrap, fillMeter, status, accessible, confirm);
 
@@ -189,6 +197,17 @@ class HandleScaleBench extends HTMLElement {
         status.classList.toggle("handle-practice-correction", needsCorrection);
       };
       const draw = () => {
+        const parked = !drag?.moved && !picked;
+        tare.toggleAttribute("data-next", parked && location === "scale" && !tareOffset && !dose);
+        grinder.toggleAttribute("data-next", parked && location === "grinder" && Boolean(tareOffset) && !dosing);
+        for (const { button, model, glow } of keysOnScreen) {
+          const active = button.hasAttribute("data-next");
+          model.cap.emissive.setHex(active ? 0x276472 : 0x000000);
+          model.cap.emissiveIntensity = .32;
+          glow.hidden = !active;
+        }
+        keys.grind.press.position.z = dosing ? -.018 : 0;
+        confirm.hidden = location !== "scale" || !parked || !tareOffset || !dose;
         const fill = Math.min(1, dose / basketFull);
         const spread = .58 + .42 * Math.sqrt(fill);
         const height = .019 + .106 * fill ** .76 + Math.max(0, dose - basketFull) * .00062;
@@ -196,8 +215,8 @@ class HandleScaleBench extends HTMLElement {
         grounds.scale.set(spread, height, spread);
         if (stream.visible) {
           const bottom = handle.position.y + grounds.position.y + height;
-          stream.position.y = (.455 + bottom) / 2;
-          stream.scale.y = .455 - bottom;
+          stream.position.y = (outlet.y + bottom) / 2;
+          stream.scale.y = outlet.y - bottom;
         }
         updateSpill(spilled, stream.visible && dose >= overflowAt, performance.now());
         const showGesture = location === "bin" && !drag?.moved && (dose > 0 || sweep > 0);
@@ -250,11 +269,10 @@ class HandleScaleBench extends HTMLElement {
         if (location === "scale") {
           if (dose) say("秤已扣掉空手柄的重量。看粉重，17.8–18.2 g 都可以。");
           else if (tareOffset) say("空手柄在秤上，读数是 0.0 g。现在可以去接粉。");
-          else say("秤上只有空手柄。点「去皮」，把这个读数设为 0.0 g。");
+          else say("点秤上的「去皮」，让读数归零。");
         } else if (location === "grinder") {
           if (!tareOffset) say("先把空手柄放到电子秤上去皮，再接粉。", true);
-          else if (!dose) say("手柄拿开后秤会显示负数。点按补粉，长按连续接粉。");
-          else say("点一次加 0.1 g，按住连续接粉。接好后放回秤上。");
+          else say("点磨豆机上的「接粉」加 0.1 g，长按连续接粉。");
         } else if (location === "bin") {
           if (dose) say("点手势图标，每次拨掉 0.1 g。再放回秤上称。");
           else say("手柄里还没有粉。先把空手柄放到秤上去皮，再接粉。", true);
@@ -274,8 +292,15 @@ class HandleScaleBench extends HTMLElement {
           return;
         }
         tareOffset = emptyHandle;
+        keys.tare.press.position.z = -.018;
+        clearTimeout(releaseTare);
+        releaseTare = setTimeout(() => {
+          keys.tare.press.position.z = 0;
+          draw();
+        }, 145);
         showWeight();
         say("现在是 0.0 g。秤记住了空手柄的重量，把手柄移到磨豆机下接粉。");
+        draw();
       }
 
       const canDose = () => {
@@ -324,6 +349,7 @@ class HandleScaleBench extends HTMLElement {
           frame = requestAnimationFrame(fill);
         };
         say("正在接粉。松开就停。");
+        draw();
         frame = requestAnimationFrame(fill);
       }
 
@@ -336,8 +362,8 @@ class HandleScaleBench extends HTMLElement {
         if (held) {
           if (dose >= overflowAt) say("已经溢粉了。放回秤上称，再拨掉一点。", true);
           else say("接粉暂停。把手柄放回秤上看读数。");
-          draw();
         }
+        draw();
         return held;
       }
 
@@ -471,6 +497,22 @@ class HandleScaleBench extends HTMLElement {
         element.style.left = `${50 + 50 * x}%`;
         element.style.top = `${50 - 50 * y}%`;
       };
+      function alignKey({ button, model, glow }, w, h) {
+        const project = (x, y) => {
+          const point = model.group.localToWorld(new THREE.Vector3(x, y, model.faceZ)).project(camera);
+          return new THREE.Vector2((point.x + 1) * w / 2, (1 - point.y) * h / 2);
+        };
+        const origin = project(-model.width / 2, model.height / 2);
+        const right = project(model.width / 2, model.height / 2).sub(origin);
+        const down = project(-model.width / 2, -model.height / 2).sub(origin);
+        const width = model.width * 100, height = model.height * 100;
+        glow.style.width = `${width}px`;
+        glow.style.height = `${height}px`;
+        glow.style.transform = `matrix(${right.x / width},${right.y / width},${down.x / height},${down.y / height},${origin.x},${origin.y})`;
+        const center = project(0, 0);
+        button.style.left = `${center.x}px`;
+        button.style.top = `${center.y}px`;
+      }
       const resize = () => {
         const w = canvas.clientWidth, h = canvas.clientHeight;
         if (!w || !h) return;
@@ -483,8 +525,7 @@ class HandleScaleBench extends HTMLElement {
         camera.updateProjectionMatrix();
         renderer.setSize(w, h, false);
         align(readout, markers.readout);
-        align(tare, markers.tare);
-        align(grinder, markers.grind);
+        for (const key of keysOnScreen) alignKey(key, w, h);
         align(remove, markers.remove);
         draw();
       };

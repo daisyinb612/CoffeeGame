@@ -19,24 +19,28 @@ class ServiceSpeech extends HTMLElement {
         <audio class="speech-playback" controls preload="metadata" aria-label="回听我的录音" hidden></audio>
       </div>
       <button type="button" class="primary speech-complete" hidden disabled>完成练习，看示范</button>
+      <button type="button" class="speech-oral" hidden>口头练习后，看示范</button>
       <p class="speech-privacy">录音仅保留在当前页面，离开练习后清除。</p>`;
     this.recordButton = this.querySelector('.speech-record-button');
     this.status = this.querySelector('.speech-status');
     this.audio = this.querySelector('audio');
     this.timer = this.querySelector('.speech-timer');
     this.complete = this.querySelector('.speech-complete');
+    this.oral = this.querySelector('.speech-oral');
     const events = { signal: this.input.signal };
     this.recordButton.addEventListener('click', () => this.recorder?.state === 'recording' ? this.stop() : this.start(), events);
     this.complete.addEventListener('click', () => {
       if (!this.complete.disabled) this.dispatchEvent(new Event('speech-complete', { bubbles: true }));
     }, events);
+    this.oral.addEventListener('click', () => this.dispatchEvent(new Event('speech-complete', { bubbles: true })), events);
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.stop(); }, events);
     document.addEventListener('toggle', event => {
       if (event.target instanceof HTMLDialogElement && event.target.open) this.stop();
     }, { ...events, capture: true });
     if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
-      this.status.textContent = '当前浏览器暂不支持录音，可以换用支持录音的浏览器。';
+      this.status.textContent = '当前页面无法录音，可以先口头练习。';
       this.recordButton.disabled = true;
+      this.oral.hidden = false;
     }
   }
 
@@ -87,6 +91,7 @@ class ServiceSpeech extends HTMLElement {
         this.updateComplete();
       };
       recorder.start();
+      this.oral.hidden = true;
       this.audio.hidden = true;
       this.started = performance.now();
       this.timer.textContent = '00:00';
@@ -108,6 +113,7 @@ class ServiceSpeech extends HTMLElement {
         NotReadableError: '麦克风暂时无法使用，请检查是否被其他应用占用。',
       };
       this.status.textContent = messages[error.name] || '录音未能开始，请检查麦克风后重新尝试。';
+      this.oral.hidden = false;
     } finally {
       if (this.isConnected && request === this.request) {
         this.pending = false;

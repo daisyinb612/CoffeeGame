@@ -1,6 +1,6 @@
 # CoffeeGame 文档
 
-当前实现以 [CoffeeGame V1 主 README](../README.md) 和 [19 关配置](../demo/story.js) 为准。文件名带 `v0.1` 的文档是早期设计记录。
+当前实现以 [CoffeeGame V1 主 README](../README.md) 和 [18 关配置](../demo/story.js) 为准。文件名带 `v0.1` 的文档是早期设计记录。
 
 - [冰美式拍摄清单](./冰美式拍摄清单.docx)
 - [冰美式互动短剧关卡草案](./冰美式互动短剧关卡草案.docx)

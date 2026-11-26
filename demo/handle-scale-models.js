@@ -35,6 +35,38 @@ function footprint(parent, w, d, h, at, material, r = .06) {
   return part;
 }
 
+function deviceKey(label, width, height, flat) {
+  const group = new THREE.Group();
+  const cap = new THREE.MeshStandardMaterial({ color: "#30383a", roughness: .72 });
+  const bezel = new THREE.MeshStandardMaterial({ color: "#171c1e", roughness: .68 });
+  const press = new THREE.Group();
+  group.add(press);
+  // The key face and its projected guidance share these local dimensions.
+  function roundedFace(parent, w, h, depth, z, material) {
+    const part = footprint(parent, w, h, depth, [0, 0, z], material, .035);
+    part.rotation.x = 0;
+  }
+  roundedFace(group, width + .025, height + .025, .012, -.01, bezel);
+  roundedFace(press, width, height, .020, .001, cap);
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 160;
+  const ctx = canvas.getContext("2d");
+  ctx.font = '600 75px "PingFang SC", system-ui';
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(label, 128, 82);
+  const texture = new THREE.CanvasTexture(canvas);
+  const legend = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
+    map: texture, color: "#e5efef", transparent: true, depthWrite: false,
+  }));
+  legend.position.z = .029;
+  press.add(legend);
+  if (flat) group.rotation.x = -Math.PI / 2;
+  return { group, press, cap, width, height, faceZ: legend.position.z };
+}
+
 function powderMaterial() {
   const material = new THREE.MeshStandardMaterial({ color: "#684a32", roughness: .94 });
   material.onBeforeCompile = shader => {
@@ -78,6 +110,14 @@ function makeHandle(scene, steel, grip, powder) {
   return { handle, grounds };
 }
 
+export function buildFilledHandle(scene) {
+  const parts = makeHandle(scene, metal(),
+    new THREE.MeshStandardMaterial({ color: "#272628", roughness: .54 }), powderMaterial());
+  parts.grounds.visible = true;
+  parts.grounds.scale.set(1, .114, 1);
+  return parts;
+}
+
 function makeBrushedPowder(scene, powder) {
   const particles = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.010, 0), powder, 10);
   particles.frustumCulled = false;
@@ -108,25 +148,44 @@ export function buildScaleModels(scene) {
   footprint(scene, 1.17, 1.19, .092, [-.91, .01, .22], slate, .10);
   footprint(scene, 1.055, .76, .027, [-.91, .102, .062], rubber, .08);
   footprint(scene, .63, .229, .008, [-.984, .106, .665], screen, .04);
-  footprint(scene, .168, .185, .018, [-.494, .105, .664], slate, .03);
+  const tareKey = deviceKey("去皮", .235, .19, true);
+  tareKey.group.position.set(-.465, .121, .664);
+  scene.add(tareKey.group);
 
   const grinder = new THREE.Group();
   grinder.position.set(.78, 0, -.53);
-  footprint(grinder, .94, .87, .12, [0, .005, .11], body, .16);
-  footprint(grinder, .60, .53, 1.02, [0, .10, -.092], body, .12);
-  footprint(grinder, .685, .59, .18, [0, 1.05, -.02], body, .12);
-  box(grinder, [.571, .326, .062], [0, .91, .244], grip);
-  box(grinder, [.509, .260, .027], [0, .90, .286], screen);
-  box(grinder, [.18, .044, .023], [0, .89, .315], steel);
+  footprint(grinder, .96, 1.04, .085, [0, .015, .25], body, .19);
+  footprint(grinder, .71, .55, .019, [0, .102, .48], steel, .13);
+  footprint(grinder, .60, .54, 1.04, [0, .093, -.07], body, .11);
+  footprint(grinder, .71, .79, .17, [0, 1.025, .11], body, .11);
+  footprint(grinder, .68, .54, .18, [0, .62, .32], body, .10);
+
+  const panel = new THREE.Group();
+  panel.position.set(0, .87, .544);
+  panel.rotation.x = -.29;
+  grinder.add(panel);
+  box(panel, [.65, .345, .048], [0, 0, 0], grip);
+  box(panel, [.55, .265, .014], [0, 0, .028], screen);
+  const grindKey = deviceKey("接粉", .31, .137, false);
+  grindKey.group.position.set(0, -.018, .048);
+  panel.add(grindKey.group);
+
+  const spoutZ = .593;
+  const spoutY = .466;
   turn(grinder, [
-    [0, 0], [.113, 0], [.116, .028], [.111, .094], [.095, .126], [0, .129],
-  ], steel, [0, .456, .593]);
-  const support = new THREE.Mesh(new THREE.TorusGeometry(.210, .018, 10, 44, Math.PI * 1.1), steel);
-  support.rotation.x = -Math.PI / 2;
-  support.rotation.z = -.27;
-  support.position.set(0, .161, .593);
-  grinder.add(support);
-  box(grinder, [.083, .052, .261], [0, .128, .317], body);
+    [.058, 0], [.082, 0], [.092, .095], [.112, .117], [.112, .165],
+  ], steel, [0, spoutY, spoutZ]);
+  turn(grinder, [[0, 0], [.058, 0], [.057, .026]], grip, [0, spoutY + .005, spoutZ]);
+  box(grinder, [.34, .085, .18], [0, .193, .28], grip);
+  for (const side of [-1, 1]) {
+    const fork = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(side * .105, .205, .28),
+      new THREE.Vector3(side * .223, .205, .42),
+      new THREE.Vector3(side * .238, .205, .62),
+      new THREE.Vector3(side * .219, .219, .715),
+    ]);
+    grinder.add(new THREE.Mesh(new THREE.TubeGeometry(fork, 18, .025, 10, false), steel));
+  }
   const hopperMaterial = new THREE.MeshPhysicalMaterial({
     color: "#a9afb0", roughness: .22, metalness: .06, transparent: true, opacity: .49, depthWrite: false,
   });
@@ -137,14 +196,15 @@ export function buildScaleModels(scene) {
   turn(grinder, [[0, 0], [.257, 0], [.272, .009], [.271, .027], [.252, .041], [0, .042]], grip, [0, 1.584, -.04]);
 
   const beans = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 10, 8),
-    new THREE.MeshStandardMaterial({ color: "#4b2a19", roughness: .46 }), 35);
+    new THREE.MeshStandardMaterial({ color: "#4b2a19", roughness: .58 }), 76);
   const bean = new THREE.Object3D();
   for (let i = 0; i < beans.count; i++) {
     const angle = i * 2.39996;
-    const radius = .043 + (i % 7) * .021;
-    bean.position.set(Math.cos(angle) * radius, 1.361 + (i % 3) * .046, -.04 + Math.sin(angle) * radius);
+    const row = Math.floor(i / 19);
+    const radius = Math.sqrt((i % 19 + .5) / 19) * (.108 + row * .019);
+    bean.position.set(Math.cos(angle) * radius, 1.306 + row * .041 + Math.sin(i) * .009, -.04 + Math.sin(angle) * radius);
     bean.rotation.set(i * .7, i * .23, i * .53);
-    bean.scale.set(.039, .023, .031);
+    bean.scale.set(.033, .021, .025);
     bean.updateMatrix();
     beans.setMatrixAt(i, bean.matrix);
   }
@@ -199,9 +259,9 @@ export function buildScaleModels(scene) {
     },
     markers: {
       readout: new THREE.Vector3(-.984, .123, .665),
-      tare: new THREE.Vector3(-.485, .130, .67),
-      grind: new THREE.Vector3(.78, .91, -.186),
       remove: new THREE.Vector3(1.18, .329, 1.019),
     },
+    keys: { tare: tareKey, grind: grindKey },
+    outlet: new THREE.Vector3(grinder.position.x, spoutY, grinder.position.z + spoutZ),
   };
 }

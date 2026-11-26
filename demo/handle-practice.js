@@ -48,6 +48,7 @@ function setupScale({ stage, image, status, updateControls, action, feedback, pa
     const moveFocus = document.activeElement?.matches(".handle-practice-controls button:focus-visible");
     spot.textContent = label;
     spot.dataset.position = position;
+    spot.toggleAttribute("data-next", position === "tare" || position === "grind");
     runSpot = activate;
     spot.disabled = false;
     spot.hidden = false;
@@ -86,6 +87,7 @@ function setupScale({ stage, image, status, updateControls, action, feedback, pa
   const grind = () => {
     const moveFocus = spot.matches(":focus-visible");
     spot.disabled = true;
+    spot.removeAttribute("data-next");
     status.textContent = "正在接粉。";
     stage.dataset.grinding = "true";
     window.setTimeout(() => {
@@ -304,6 +306,18 @@ function showPhotoPractice(kind, { actions, feedback, button: action, pass }) {
 }
 
 export function showHandlePractice(kind, options) {
+  if (kind === "distribution") {
+    const host = document.createElement("div");
+    options.actions.replaceChildren(host);
+    const fallback = () => {
+      if (!host.isConnected) return;
+      showPhotoPractice(kind, { ...options, pass: () => showPhotoPractice("tamp", options) });
+    };
+    import("./handle-distribution-game.js?v=distribution-flow").then(({ showDistribution }) => {
+      if (host.isConnected && !showDistribution(host, options)) fallback();
+    }).catch(fallback);
+    return;
+  }
   if (kind !== "scale") {
     showPhotoPractice(kind, options);
     return;
@@ -315,5 +329,5 @@ export function showHandlePractice(kind, options) {
   bench.addEventListener("scale-bench-complete", options.pass, { once: true });
   bench.addEventListener("scale-bench-unavailable", fallback, { once: true });
   options.actions.replaceChildren(bench);
-  import("./handle-scale-bench.js?v=brush-gesture").catch(fallback);
+  import("./handle-scale-bench.js?v=aligned-keys").catch(fallback);
 }

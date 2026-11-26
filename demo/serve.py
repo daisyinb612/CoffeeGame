@@ -1,11 +1,14 @@
-"""Serve the portrait demo and stream the original recording locally."""
+"""Serve the portrait demo with byte-range video playback."""
 import argparse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+import os
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
 from build_media import DEFAULT_SOURCE, ROOT
+
+DEFAULT_PLAYBACK = ROOT / "media" / "story-full.mp4"
 
 
 class DemoHandler(SimpleHTTPRequestHandler):
@@ -14,16 +17,21 @@ class DemoHandler(SimpleHTTPRequestHandler):
 
     def send_head(self):
         self.video_bytes = None
-        if urlsplit(self.path).path != "/media/story-original.mp4":
+        path = urlsplit(self.path).path
+        if path == "/media/story-full.mp4":
+            video = self.server.playback
+        elif path == "/media/story-original.mp4":
+            video = self.server.source
+        else:
             return super().send_head()
 
         try:
-            source = self.server.source.open("rb")
+            source = video.open("rb")
         except OSError:
-            self.send_error(404, "Original recording not found")
+            self.send_error(404, "Lesson recording not found")
             return None
 
-        size = self.server.source_size
+        size = os.fstat(source.fileno()).st_size
         start, end = 0, size - 1
         requested = self.headers.get("Range")
         if requested:
@@ -77,14 +85,16 @@ class DemoHandler(SimpleHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--host", default="127.0.0.1", help="IPv4 listen address (use 0.0.0.0 for local network access)")
     parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
+    parser.add_argument("--source", type=Path, help="Override the lesson recording")
     args = parser.parse_args()
-    source = args.source.resolve(strict=True)
-    with ThreadingHTTPServer(("127.0.0.1", args.port), DemoHandler) as server:
-        server.source = source
-        server.source_size = source.stat().st_size
-        print(f"http://127.0.0.1:{server.server_port}/", flush=True)
+    playback = (args.source or DEFAULT_PLAYBACK).resolve(strict=True)
+    with ThreadingHTTPServer((args.host, args.port), DemoHandler) as server:
+        server.source = playback if args.source else DEFAULT_SOURCE
+        server.playback = playback
+        host = "127.0.0.1" if args.host == "0.0.0.0" else args.host
+        print(f"http://{host}:{server.server_port}/", flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:

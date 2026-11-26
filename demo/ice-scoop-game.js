@@ -1,5 +1,5 @@
 import * as THREE from "./vendor/three.module.min.js";
-import { addIce, createIceResources, cupRim, icePiece, makeGlass } from "./ice-models.js?v=ice-pile";
+import { addIce, createIceResources, cupFloor, cupRim, icePiece, makeGlass } from "./ice-models.js?v=ice-pile";
 import { buildCupInspection, buildWaterStation } from "./ice-workshop-station.js?v=faucet-flow";
 
 const ground = -.70;
@@ -10,7 +10,68 @@ const dragDepth = .65;
 const pourPoint = new THREE.Vector3(cupX + .34, cupRim + .32, .03);
 const scoopSize = 4;
 const targetAmount = scoopSize * 3;
+const waterGoal = .8;
+const minWater = .74;
+const maxWater = .86;
 const dropInstruction = "点冰铲，或拖到杯口。";
+
+function makeFaucetSound(signal) {
+  const url = "assets/ice/faucet-loop.wav";
+  const fallback = new Audio(url);
+  fallback.loop = true;
+  fallback.preload = "auto";
+  const AudioContext = window.AudioContext ?? window.webkitAudioContext;
+  const bytes = AudioContext ? fetch(url, { signal }).then(response => {
+    if (!response.ok) throw Error("Faucet audio unavailable");
+    return response.arrayBuffer();
+  }).catch(() => null) : null;
+  let context, buffer, voice, generation = 0;
+  function stop() {
+    generation++;
+    fallback.pause();
+    if (!voice) return;
+    const { source, gain } = voice;
+    const time = context.currentTime;
+    gain.gain.cancelScheduledValues(time);
+    gain.gain.setTargetAtTime(0, time, .018);
+    source.stop(time + .085);
+    voice = undefined;
+  }
+  async function play() {
+    const current = ++generation;
+    if (AudioContext) {
+      try {
+        context ??= new AudioContext();
+        await context.resume();
+        if (current !== generation || signal.aborted) return;
+        buffer ??= await bytes.then(data => data && context.decodeAudioData(data.slice(0)));
+        if (current !== generation || signal.aborted) return;
+        if (buffer) {
+          const source = context.createBufferSource(), gain = context.createGain();
+          source.buffer = buffer;
+          source.loop = true;
+          source.connect(gain).connect(context.destination);
+          source.onended = () => { source.disconnect(); gain.disconnect(); };
+          const time = context.currentTime;
+          gain.gain.setValueAtTime(0, time);
+          gain.gain.linearRampToValueAtTime(.9, time + .055);
+          voice = { source, gain };
+          source.start(time);
+          return;
+        }
+      } catch { /* Use the regular audio element if Web Audio is unavailable. */ }
+    }
+    if (current === generation && !signal.aborted) {
+      fallback.currentTime = 0;
+      await fallback.play().catch(() => {});
+    }
+  }
+  signal.addEventListener("abort", () => {
+    stop();
+    context?.close().catch(() => {});
+  }, { once: true });
+  return { play, stop };
+}
 
 function box(parent, size, position, material) {
   const object = new THREE.Mesh(new THREE.BoxGeometry(...size), material);
@@ -379,12 +440,9 @@ class IceScoopGame extends HTMLElement {
     const input = new AbortController();
     const events = { signal: input.signal };
     const textures = [];
-    const flowSound = new Audio("assets/ice/faucet-flow.mp3");
-    flowSound.preload = "none";
-    flowSound.loop = true;
+    const flowSound = makeFaucetSound(input.signal);
     this.cleanup = () => {
       input.abort();
-      flowSound.pause();
       observer?.disconnect();
       cancelAnimationFrame(frame);
       const geometry = new Set(), materials = new Set();
@@ -446,7 +504,17 @@ class IceScoopGame extends HTMLElement {
       faucet.setAttribute("aria-label", "水龙头开关");
       faucet.setAttribute("aria-pressed", "false");
       faucet.hidden = true;
-      view.append(canvas, faucet);
+      const waterTarget = document.createElement("span");
+      waterTarget.className = "ice-water-target";
+      const goalLabel = document.createElement("span");
+      goalLabel.textContent = "8 分满";
+      waterTarget.append(goalLabel);
+      waterTarget.hidden = true;
+      const waterGauge = document.createElement("span");
+      waterGauge.className = "ice-water-gauge";
+      waterGauge.setAttribute("aria-hidden", "true");
+      waterGauge.hidden = true;
+      view.append(canvas, waterTarget, waterGauge, faucet);
       const steps = document.createElement("ol");
       steps.className = "ice-workshop-steps";
       steps.setAttribute("aria-label", "练习进度");
@@ -485,7 +553,7 @@ class IceScoopGame extends HTMLElement {
         ray.ray.intersectPlane(plane, point);
       };
       let pointer, added = 0, pouring = false, result = "";
-      let phase = "ice", aspect = 1, waterLevel = 0, flowing = false;
+      let phase = "ice", aspect = 1, waterLevel = 0, flowing = false, waterBand;
       let pileViews = [];
       const iceTilts = ice.map(chunk => chunk.rotation.z);
       const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -523,6 +591,7 @@ class IceScoopGame extends HTMLElement {
         draw();
       }).catch(() => { /* Keep the real-time ice if the rendered views are unavailable. */ });
       const switchCenter = new THREE.Vector3();
+      const goalLeft = new THREE.Vector3(), goalRight = new THREE.Vector3();
       const fitCamera = () => {
         const width = Math.max(phase === "ice" ? 1.86 : 1.33, halfHeight * aspect);
         const center = phase === "ice" ? .18 : 0;
@@ -536,12 +605,21 @@ class IceScoopGame extends HTMLElement {
         switchCenter.copy(water.switchPosition).project(camera);
         faucet.style.left = `${50 + 50 * switchCenter.x}%`;
         faucet.style.top = `${50 - 50 * switchCenter.y}%`;
+        if (phase === "water") {
+          const y = cup.position.y + THREE.MathUtils.lerp(cupFloor, cupRim, waterGoal);
+          goalLeft.set(water.cupX - .30, y, cup.position.z + .16).project(camera);
+          goalRight.set(water.cupX + .30, y, cup.position.z + .16).project(camera);
+          waterTarget.style.left = `${50 + 50 * goalLeft.x}%`;
+          waterTarget.style.top = `${50 - 50 * goalLeft.y}%`;
+          waterTarget.style.width = `${50 * (goalRight.x - goalLeft.x)}%`;
+        }
       };
       const showPhase = (next, index, prompt) => {
         phase = this.dataset.phase = next;
         result = "";
         add.hidden = next !== "inspection";
         faucet.hidden = next !== "water";
+        waterTarget.hidden = waterGauge.hidden = next !== "water";
         if (next === "ice") {
           canvas.tabIndex = 0;
           canvas.setAttribute("role", "button");
@@ -636,6 +714,15 @@ class IceScoopGame extends HTMLElement {
 
       const setWater = (level, running = false) => {
         waterLevel = Math.min(level, 1.12);
+        const band = waterLevel < minWater ? "low" : waterLevel <= maxWater ? "ready" : "high";
+        const gaugeText = `水位 ${Math.round(waterLevel * 100)}%`;
+        if (waterGauge.textContent !== gaugeText) waterGauge.textContent = gaugeText;
+        if (band !== waterBand) {
+          waterBand = band;
+          waterGauge.dataset.band = waterTarget.dataset.band = band;
+          if (running && band === "ready") status.textContent = "已接近八分满，点亮起的开关关水。";
+          if (running && band === "high") status.textContent = "水位超过目标了，点开关关水。";
+        }
         const wobble = running && !reducedMotion.matches ? .018 : 0;
         const time = performance.now() * .007;
         cupIce.material.rotation = Math.sin(time) * wobble;
@@ -647,15 +734,15 @@ class IceScoopGame extends HTMLElement {
         draw();
       };
       const beginWater = () => {
-        showPhase("water", 1, "接多少直饮水才刚好？");
         machine.visible = scoop.visible = false;
         water.fixture.visible = true;
         worktop.visible = false;
         cup.position.x = water.cupX;
         cup.position.y = .035;
+        showPhase("water", 1, "接直饮水到八分满。");
         faucet.disabled = false;
         finish.textContent = "确认水位";
-        status.textContent = "点水龙头开关开始接水。";
+        status.textContent = "点亮起的龙头开关。水面到「8 分满」附近时关水。";
         if (finish.matches(":focus-visible")) faucet.focus({ preventScroll: true });
         setWater(0);
       };
@@ -716,14 +803,14 @@ class IceScoopGame extends HTMLElement {
           return;
         }
         faucet.disabled = true;
-        if (waterLevel >= .74 && waterLevel <= .86) {
+        if (waterLevel >= minWater && waterLevel <= maxWater) {
           result = "correct";
           finish.textContent = "检查台面";
           status.textContent = "刚好约八分满，杯口还留了一点空间。";
         } else {
           result = "retry";
           finish.textContent = "重新接水";
-          status.textContent = waterLevel < .74 ? "水还少了一些。冰和水一起到约八分满。"
+          status.textContent = waterLevel < minWater ? "水还少了一些。冰和水一起到约八分满。"
             : "水接多了。到约八分满就停，给杯口留一点空间。";
         }
       };
@@ -732,7 +819,7 @@ class IceScoopGame extends HTMLElement {
         if (!flowing) return;
         flowing = false;
         cancelAnimationFrame(frame);
-        flowSound.pause();
+        flowSound.stop();
         faucet.setAttribute("aria-pressed", "false");
         finish.disabled = false;
         status.textContent = waterLevel > 1
@@ -750,7 +837,7 @@ class IceScoopGame extends HTMLElement {
         faucet.setAttribute("aria-pressed", "true");
         status.textContent = "正在接水。再点一次开关就能停。";
         finish.disabled = true;
-        flowSound.play().catch(() => { /* Water can still be controlled without audio. */ });
+        void flowSound.play();
         const start = performance.now();
         const level = waterLevel;
         const fill = now => {
@@ -773,10 +860,6 @@ class IceScoopGame extends HTMLElement {
           return;
         }
         if (pouring) return;
-        if (result === "correct") {
-          beginWater();
-          return;
-        }
         if (result === "retry") {
           added = 0;
           result = "";
@@ -787,9 +870,8 @@ class IceScoopGame extends HTMLElement {
           return;
         }
         if (added === targetAmount) {
-          result = "correct";
-          finish.textContent = "继续接水";
-          status.textContent = "冰接近杯口，刚好可以去接水。";
+          beginWater();
+          return;
         } else {
           result = "retry";
           finish.textContent = "重新加冰";
