@@ -10,3 +10,11 @@
 ## 干净器具图
 
 `portafilter-clean.png`、`measuring-cup-clean.png`、`stirrer-clean.png`：2026-11-25 使用 ImageGen 生成的透明背景教学素材，按课程器具外形绘制，并非原视频实拍。用于第19关题目主图，原实拍素材保留。
+
+## 位置图第二版 · 2026-11-26
+
+三张 `location-*-v2.png` 以用户提供的真实咖啡工作区全景为参考，使用 ImageGen 重构近景并增强细节和曝光；属于 AI 增强教学图片，不是未经修改的照片裁切。原视频截图保留以便回退。
+
+- `location-rack-v2.png`：咖啡机顶部格栅，区别于机器下方的沥水盘。
+- `location-holder-v2.png`：磨豆机右侧的不锈钢工具筒。
+- `location-cloth-v2.png`：机顶后右侧的小型口布架。

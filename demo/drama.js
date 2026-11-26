@@ -1,5 +1,5 @@
 import { checkpoints } from "./story.js?v=cloth-match-2";
-import { showCleanup } from "./cleanup-game.js?v=return-assets-3";
+import { showCleanup } from "./cleanup-game.js?v=cloth-hq-3";
 import { showCleanupDiscovery } from "./cleanup-discovery.js?v=discovery-toolbar-2";
 import { showExtraction, createExtractionRun } from "./extraction-game.js";
 import { showServiceTray } from "./service-tray.js?v=physical-serving-2";
