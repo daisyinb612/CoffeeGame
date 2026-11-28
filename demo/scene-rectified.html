@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#181d19">
+  <title>咖啡馆天空盒 · 恢复原桌体</title>
+  <link rel="stylesheet" href="scene-box-game.css?v=free-look-20261127">
+  <script type="module" src="scene-box-game-wide.js?v=restored-table-20261128"></script>
+</head>
+<body>
+  <main class="tour" aria-label="咖啡馆天空盒空间">
+    <div id="viewport" class="viewport" aria-label="拖动旋转视角查看咖啡馆">
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="view-label"><span class="eyebrow">COFFEEGAME / 天空盒</span><h1 id="view-title">前方</h1><p id="view-description">完整制作台与水池</p></div>
+      <div class="crosshair" aria-hidden="true">✦</div>
+      <button id="previous" class="side-arrow left" type="button" aria-label="向左转 90 度">‹</button>
+      <button id="following" class="side-arrow right" type="button" aria-label="向右转 90 度">›</button>
+      <div class="view-hint">拖动自由旋转 360° · 滚轮缩放 · 点击箭头转向</div>
+    </div>
+    <section class="dock" aria-label="方向选择">
+      <div class="dock-top"><span>咖啡馆探索</span><span id="progress">已看 1 / 4 个方向</span></div>
+      <a href="scene-positions.html" style="display:inline-block;margin:10px 0;color:#d4ead8">指定照片的前、后、左、右方向 →</a>
+      <a href="scene-prompts.html" style="display:inline-block;margin:10px 0 10px 18px;color:#d4ead8">给五张图分别写修改要求 →</a>
+      <a href="coffee-discovery.html" style="display:block;margin:12px 0;padding:12px;border:1px solid #d9d5a8;border-radius:10px;background:#39563e;color:#fff;text-align:center;text-decoration:none">进入物品探索游戏</a>
+      <div id="view-list" class="view-list"></div>
+      <p class="note">已恢复原版完整桌体。拖动环视，滚轮缩放。</p>
+    </section>
+  </main>
+</body>
+</html>

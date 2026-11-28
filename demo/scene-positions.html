@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>确定照片方向 · CoffeeGame</title>
+  <link rel="stylesheet" href="scene-positions.css?v=20261127b">
+  <script type="module" src="scene-positions.js?v=20261127b"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <a class="back" href="scene-box-game.html">返回场景</a>
+      <span class="eyebrow">COFFEEGAME / 空间方向校准</span>
+      <h1>四张照片分别朝哪边？</h1>
+      <p>把你站在同一个位置时看到的方向放进对应槽位。前方是你希望打开场景时正对的方向；右、后、左按转身顺序排列。每个方向选一张不同的照片。</p>
+    </header>
+    <div class="layout">
+      <section class="compass-panel" aria-label="方向示意">
+        <div class="compass">
+          <div class="compass-center"><span>你站在这里</span><small>面朝前方</small></div>
+          <div class="compass-face front"><b>前</b><span id="compass-front">未选择</span></div>
+          <div class="compass-face right"><b>右</b><span id="compass-right">未选择</span></div>
+          <div class="compass-face back"><b>后</b><span id="compass-back">未选择</span></div>
+          <div class="compass-face left"><b>左</b><span id="compass-left">未选择</span></div>
+        </div>
+        <p class="compass-note">示意图只表示朝向，不要求照片从同一个点拍摄。</p>
+      </section>
+      <form id="mapping-form" class="form-panel">
+        <div id="slots" class="slots"></div>
+        <div class="actions"><button id="save" class="save" type="submit">保存四个方向</button><p id="status" role="status" aria-live="polite">选择已有照片，或为对应方向上传 JPG、PNG、WebP 图片。</p></div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

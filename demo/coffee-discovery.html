@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#18392e">
+  <title>咖啡馆找一找 · CoffeeGame</title>
+  <link rel="stylesheet" href="coffee-discovery.css?v=1">
+  <script type="module" src="coffee-discovery.js?v=3"></script>
+</head>
+<body>
+  <main class="game" aria-label="咖啡馆物品探索游戏">
+    <section id="scene" class="scene" aria-label="拖动环视咖啡馆，点击物品标记">
+      <div class="shade" aria-hidden="true"></div>
+      <header class="topbar">
+        <div class="identity"><span class="brand">COFFEEGAME</span><h1>咖啡馆找一找</h1><p>慢慢看，认识制作咖啡的伙伴。</p></div>
+        <div class="top-actions"><button id="collection-button" type="button" aria-expanded="false" aria-controls="collection">物品图鉴 <span id="compact-count">0/12</span></button><button id="help-button" type="button" aria-label="查看操作说明">怎么转动？</button></div>
+      </header>
+      <div id="markers" class="markers" aria-label="场景里的物品标记"></div>
+      <nav class="directions" aria-label="转向咖啡馆的不同方向"><button type="button" data-direction="0" aria-current="true">制作台</button><button type="button" data-direction="1">门口</button><button type="button" data-direction="2">背面工作台</button><button type="button" data-direction="3">窗户</button></nav>
+      <div class="bottom-bar"><span id="scene-status" role="status">正在载入咖啡馆…</span><div class="zoom"><button id="zoom-out" type="button" aria-label="缩小视野">−</button><button id="zoom-in" type="button" aria-label="放大视野">＋</button></div></div>
+      <div id="load-error" class="load-error" hidden><h2>暂时无法显示全景</h2><p>你仍可打开物品图鉴，查看全部物品的实拍图和用途。</p><button id="open-fallback" type="button">打开物品图鉴</button></div>
+    </section>
+    <aside id="collection" class="collection" aria-label="物品图鉴">
+      <header class="collection-heading"><div><span class="eyebrow">我的咖啡馆图鉴</span><h2>今天认识谁？</h2></div><button id="close-collection" class="icon-button" type="button" aria-label="收起物品图鉴">×</button></header>
+      <p class="collection-intro">点击场景中的标记，或从这里选择一件物品。</p>
+      <div class="progress-label"><strong id="progress-text">已认识 0 / 12 件</strong><span>可以随时回来继续</span></div><progress id="progress" max="12" value="0" aria-label="已认识物品的进度"></progress>
+      <div class="filters" role="group" aria-label="筛选物品"><button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="new" aria-pressed="false">还没认识</button><button type="button" data-filter="known" aria-pressed="false">已认识</button></div>
+      <div id="item-list" class="item-list"></div><p id="empty-list" class="empty-list" hidden>这一组暂时没有物品。</p>
+      <div id="completion" class="completion" hidden><strong>12件物品，都认识啦！</strong><p>你已经完成这次咖啡馆探索，想看哪件都可以再看。</p></div>
+      <footer class="collection-footer"><a href="scene-box-game-wide.html">查看原版全景</a><button id="reset-progress" type="button">重新探索</button></footer>
+    </aside>
+  </main>
+  <dialog id="item-dialog" class="item-dialog" aria-labelledby="item-title">
+    <button id="close-item" class="dialog-close" type="button" aria-label="关闭物品介绍">×</button>
+    <div id="item-photo" class="item-photo" role="img" aria-label="物品实拍特写"></div>
+    <div class="item-copy"><div class="item-meta"><span id="item-category" class="eyebrow"></span><span id="item-known"></span></div><h2 id="item-title"></h2><p id="item-summary" class="item-summary"></p><div class="knowledge"><h3>它有什么用？</h3><p id="item-use"></p><h3>一个小提醒</h3><p id="item-tip"></p></div><div class="dialog-actions"><button id="locate-item" class="secondary" type="button">去它的位置</button><button id="got-it" class="primary" type="button">我知道啦</button></div></div>
+  </dialog>
+  <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-title"><span class="eyebrow">不用着急，慢慢来</span><h2 id="help-title">转一转，找一找</h2><ol><li>按住画面左右拖动，看看咖啡馆四周。</li><li>点击物品旁的圆形标记，查看介绍。</li><li>看完点“我知道啦”，收进自己的图鉴。</li></ol><p>也可以点方向按钮转身，或从图鉴选择物品。键盘方向键可转头，Esc 关闭介绍。</p><button id="close-help" class="primary" type="button">开始找一找</button></dialog>
+  <dialog id="reset-dialog" class="help-dialog" aria-labelledby="reset-title"><h2 id="reset-title">重新探索咖啡馆？</h2><p>会清空这台设备上已认识物品的记录。你可以重新逐件认识。</p><div class="dialog-actions"><button id="cancel-reset" class="secondary" type="button">继续这次探索</button><button id="confirm-reset" class="primary" type="button">重新开始</button></div></dialog>
+</body>
+</html>
