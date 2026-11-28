@@ -26,15 +26,17 @@ const levelList = get("level-list");
 const captions = get("captions");
 const captionTrack = get("caption-track").track;
 const lessonStart = 7.5;
-const chapterTitles = new Map([
-  [0, "准备及个人卫生"],
-  [1, "冰杯预处理"],
-  [2, "手柄处理"],
-  [6, "咖啡机萃取操作"],
-  [3, "调配与搅拌操作"],
-  [4, "出品与服务"],
-  [5, "清洁与工作台复位"],
-]);
+const phaseRows = [...get("overview-phases").children];
+const chapterTitles = new Map(phaseRows.map(row => [Number(row.dataset.phase), row.textContent]));
+get("overview-count").textContent = `共 ${checkpoints.length} 关`;
+for (const row of phaseRows) {
+  const first = checkpoints.findIndex(level => level.phase === Number(row.dataset.phase));
+  const count = checkpoints.filter(level => level.phase === Number(row.dataset.phase)).length;
+  const range = document.createElement("span");
+  range.className = "level-range";
+  range.textContent = count === 1 ? `第 ${first + 1} 关` : `第 ${first + 1}–${first + count} 关`;
+  row.append(range);
+}
 let next = 0;
 let state = "ready";
 let muted = true;
@@ -59,7 +61,9 @@ function updateCaptions() {
 
 function mode(value) {
   state = value;
-  loading.hidden = true;
+  loading.hidden = value !== "ready";
+  get("overview-start").hidden = value !== "ready";
+  get("loading-status").hidden = value === "ready";
   stage.dataset.mode = value === "playing" ? "playing" : "dialogue";
   delete stage.dataset.activity;
   pause.hidden = sound.hidden = value !== "playing";
@@ -86,7 +90,14 @@ function updateBufferProgress() {
 
 function showBuffering() {
   if (state !== "playing" || settings.open || film.paused) return;
-  loadingTitle.textContent = "正在缓冲视频";
+  const upcoming = checkpoints[next];
+  for (const row of phaseRows) {
+    if (Number(row.dataset.phase) === upcoming?.phase) row.setAttribute("aria-current", "step");
+    else row.removeAttribute("aria-current");
+  }
+  loadingTitle.textContent = upcoming
+    ? `正在缓冲 · 接下来是第 ${next + 1} 关「${upcoming.title}」`
+    : "正在缓冲课程结尾";
   loading.hidden = false;
   updateBufferProgress();
 }
@@ -95,7 +106,7 @@ film.addEventListener("waiting", showBuffering);
 film.addEventListener("progress", updateBufferProgress);
 film.addEventListener("loadedmetadata", updateBufferProgress);
 for (const event of ["playing", "pause", "ended"]) {
-  film.addEventListener(event, () => { loading.hidden = true; });
+  film.addEventListener(event, () => { if (state !== "ready") loading.hidden = true; });
 }
 
 function play() {
@@ -536,9 +547,7 @@ sound.onclick = () => {
 };
 applySoundPreference();
 mode("ready");
-speaker.textContent = "做一杯冰美式";
-line.textContent = "先看看做冰美式要准备什么，再一起做一杯。";
-actions.replaceChildren(button("开始学习", start, "primary"));
+get("overview-start").onclick = start;
 
 // Keep the user gesture for play(), but prepare the opening frames while the welcome screen is open.
 if (!navigator.connection?.saveData) {

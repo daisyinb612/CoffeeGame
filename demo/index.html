@@ -5,24 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#171717">
   <title>冰美式制作 · CoffeeGame</title>
-  <link rel="stylesheet" href="drama.css?v=buffer-progress-1">
+  <link rel="stylesheet" href="drama.css?v=course-overview-1">
   <link rel="stylesheet" href="cleanup-discovery.css?v=discovery-toolbar-2">
   <link rel="stylesheet" href="return-tools.css?v=return-locations-5">
   <link rel="stylesheet" href="cloth-matching.css?v=cloth-clear-2">
   <link rel="stylesheet" href="service-speech.css?v=recording-click-fix-1">
   <link rel="stylesheet" href="service-tray.css?v=physical-serving-1">
-  <script type="module" src="drama.js?v=warm-start-1"></script>
+  <script type="module" src="drama.js?v=course-overview-1"></script>
 </head>
 <body>
   <main class="stage" id="stage" data-mode="dialogue" aria-label="冰美式制作互动教学">
     <video id="film" src="media/story-original.mp4?v=971ed4cb" poster="media/story-full.jpg?v=full-resolution" playsinline muted preload="metadata" aria-label="完整第一人称实拍">
       <track id="caption-track" kind="captions" srclang="zh-CN" label="简体中文" src="captions/story-zh.vtt?v=full-caption-sync">
     </video>
-    <section id="loading" class="loading-screen" aria-labelledby="loading-title">
+    <section id="loading" class="loading-screen" aria-labelledby="overview-title">
       <div class="loading-panel">
-        <h2 id="loading-title" role="status">正在打开课程</h2>
-        <progress id="loading-bar" max="100" aria-labelledby="loading-title"></progress>
-        <p id="loading-detail">正在准备播放器…</p>
+        <header class="overview-header">
+          <h2 id="overview-title">冰美式制作</h2>
+          <p>视频约 10 分钟 · <span>跟练建议预留 20–30 分钟</span></p>
+        </header>
+        <div class="overview-card">
+          <h3>关卡总览 <span id="overview-count"></span></h3>
+          <ol id="overview-phases">
+            <li data-phase="0"><span>准备及个人卫生</span></li>
+            <li data-phase="1"><span>冰杯预处理</span></li>
+            <li data-phase="2"><span>手柄处理</span></li>
+            <li data-phase="6"><span>咖啡机萃取操作</span></li>
+            <li data-phase="3"><span>调配与搅拌操作</span></li>
+            <li data-phase="4"><span>成品与摆盘出品</span></li>
+            <li data-phase="5"><span>清洁与工作台复位</span></li>
+          </ol>
+        </div>
+        <div id="loading-status">
+          <p id="loading-title" role="status">正在打开课程</p>
+          <progress id="loading-bar" max="100" aria-labelledby="loading-title"></progress>
+          <p id="loading-detail">正在准备播放器…</p>
+        </div>
+        <button id="overview-start" type="button" hidden>开始学习</button>
       </div>
     </section>
     <div id="captions" class="captions" hidden><span></span></div>

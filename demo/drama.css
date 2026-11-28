@@ -32,15 +32,30 @@ body { margin: 0; min-height: 100svh; display: grid; place-items: center; }
 }
 #film { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
 .loading-screen {
-  position: absolute; inset: 0; z-index: 1; display: grid; place-items: center;
-  background: rgb(28 21 17 / 82%); pointer-events: none;
+  position: absolute; inset: 0; z-index: 1; display: grid; overflow-y: auto;
+  padding: 62px 6% 20px; overscroll-behavior: contain;
+  background: linear-gradient(175deg, rgb(38 26 18 / 82%), rgb(30 21 16 / 97%));
 }
-.loading-panel { width: min(76%, 300px); }
-.loading-panel h2 { margin: 0; font-size: 1.35rem; font-weight: 600; }
-.loading-panel progress {
-  display: block; width: 100%; height: 8px; margin-block: 14px 10px; accent-color: #e1b08a;
+.loading-panel { width: 100%; max-width: 390px; margin: auto; }
+.overview-header h2 { margin: 0; font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.2; }
+.overview-header p, #loading-detail { margin: 5px 0 0; color: #f0dbc7; font-size: .85rem; }
+.overview-header p span { display: inline-block; }
+.overview-card {
+  margin-block: 14px; padding: 13px 16px; color: var(--ink);
+  background: var(--paper); border-radius: 14px;
 }
-.loading-panel p { margin: 0; color: #f0dbc7; font-size: .94rem; font-variant-numeric: tabular-nums; }
+.overview-card h3 { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 6px; font-size: 1rem; }
+#overview-count, .level-range { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+#overview-phases { list-style: none; padding: 0; margin: 0; }
+#overview-phases li { display: flex; align-items: center; gap: 8px; padding-block: 4px; font-size: .95rem; }
+#overview-phases li + li { border-top: 1px solid #e5ddd2; }
+#overview-phases li[aria-current="step"] { color: #753e20; font-weight: 700; }
+#overview-phases li[aria-current="step"]::before { content: "▸"; }
+.level-range { margin-inline-start: auto; }
+#overview-start { width: 100%; background: #f3d6b7; color: var(--ink); border: 0; font-weight: 650; }
+#loading-title { margin: 0; font-size: .95rem; }
+.loading-panel progress { display: block; width: 100%; height: 7px; margin-block: 6px; accent-color: #e1b08a; }
+#loading-detail { font-variant-numeric: tabular-nums; }
 .scene-overlay {
   position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: end;
   padding: 12px 12px max(12px, env(safe-area-inset-bottom)); pointer-events: none;
