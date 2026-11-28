@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#171717">
   <title>冰美式制作 · CoffeeGame</title>
-  <link rel="stylesheet" href="drama.css?v=video-progress-2">
+  <link rel="stylesheet" href="drama.css?v=welcome-guide-1">
   <link rel="stylesheet" href="cleanup-discovery.css?v=discovery-toolbar-2">
   <link rel="stylesheet" href="return-tools.css?v=return-locations-5">
   <link rel="stylesheet" href="cloth-matching.css?v=cloth-clear-2">
   <link rel="stylesheet" href="service-speech.css?v=recording-click-fix-1">
   <link rel="stylesheet" href="service-tray.css?v=physical-serving-1">
-  <script type="module" src="drama.js?v=video-progress-2"></script>
+  <script type="module" src="drama.js?v=welcome-guide-1"></script>
 </head>
 <body>
   <main class="stage" id="stage" data-mode="dialogue" aria-label="冰美式制作互动教学">
@@ -32,6 +32,14 @@
           <progress id="loading-bar" max="100" aria-labelledby="loading-title"></progress>
           <p id="loading-detail">正在准备播放器…</p>
         </div>
+        <div id="overview-welcome" hidden>
+          <div class="welcome-guide">
+            <h3>操作说明</h3>
+            <p><strong>切换关卡</strong>　点右上角齿轮「设置」，选「关卡选择」，再点想练的关卡。</p>
+            <p><strong>跟着视频练</strong>　点「开始学习」。播放时可以暂停或开关原声，遇到练习会自动暂停。</p>
+          </div>
+          <button id="overview-start" type="button">开始学习</button>
+        </div>
         <div class="overview-card">
           <h3>关卡总览 <span id="overview-count"></span></h3>
           <ol id="overview-phases">
@@ -44,7 +52,6 @@
             <li data-phase="5"><span>清洁与工作台复位</span></li>
           </ol>
         </div>
-        <button id="overview-start" type="button" hidden>开始学习</button>
       </div>
     </section>
     <div id="captions" class="captions" hidden><span></span></div>

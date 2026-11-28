@@ -63,7 +63,7 @@ function updateCaptions() {
 function mode(value) {
   state = value;
   loading.hidden = value !== "ready";
-  get("overview-start").hidden = value !== "ready";
+  get("overview-welcome").hidden = value !== "ready";
   if (value === "ready") {
     loadingTitle.textContent = "开播缓冲";
     updateBufferProgress();
@@ -96,7 +96,7 @@ function updateBufferProgress() {
   const percent = Math.floor(100 * seconds / target);
   loadingBar.value = percent;
   loadingPercent.textContent = `${percent}%`;
-  loadingDetail.textContent = `当前片段已缓冲 ${seconds.toFixed(1)} / ${target.toFixed(1)} 秒`;
+  loadingDetail.textContent = "";
 }
 
 function showBuffering() {
