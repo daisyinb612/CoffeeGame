@@ -1,4 +1,4 @@
-import { showClothMatching } from "./cloth-matching.js?v=cloth-refined-1";
+import { showClothMatching } from "./cloth-matching.js?v=cloth-hq-3";
 
 const returnItems = [
   ["手柄", "assets/return/portafilter-clean.png", 0],
@@ -7,9 +7,9 @@ const returnItems = [
   ["口布", "assets/cloths/white.png", 2],
 ];
 const locations = [
-  { name: "机顶格栅", photo: "assets/preparation/warm-rack.jpg", crop: "rack" },
-  { name: "工具筒", photo: "assets/return/utensil-holder.jpg", crop: "holder" },
-  { name: "口布架", photo: "assets/return/cloth-rack.jpg", crop: "cloth" },
+  { name: "机顶格栅", photo: "assets/return/location-rack-v2.png", crop: "rack" },
+  { name: "工具筒", photo: "assets/return/location-holder-v2.png", crop: "holder" },
+  { name: "口布架", photo: "assets/return/location-cloth-v2.png", crop: "cloth" },
 ];
 
 export function showCleanup(kind, { actions, feedback, button, pass }) {

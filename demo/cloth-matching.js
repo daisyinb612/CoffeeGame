@@ -4,10 +4,10 @@ const cloths = [
   { id: 'white', name: '干净口巾', photo: 'assets/cloths/white.png', use: '干净口巾用来擦干冲洗后的量杯和搅拌棒。' },
 ];
 const rounds = [
-  { name: '粉碗', action: '冲洗后擦干', answer: 'brown', photos: ['assets/handle/basket-rinse.jpg'] },
+  { name: '粉碗', action: '冲洗后擦干', answer: 'brown', photos: ['assets/return/portafilter-clean.png'] },
   { name: '沥水盘', action: '擦拭干净', answer: 'blue', photos: ['assets/preparation/drip-tray.jpg'] },
   { name: '工作台面', action: '擦净粉渣、水迹和咖啡渍', answer: 'blue', counter: true },
-  { name: '量杯、搅拌棒', action: '冲洗后擦干', answer: 'white', photos: ['assets/inventory/measuring-cup.jpg', 'assets/inventory/spoon.jpg'] },
+  { name: '量杯、搅拌棒', action: '冲洗后擦干', answer: 'white', photos: ['assets/return/measuring-cup-clean.png', 'assets/return/stirrer-clean.png'] },
 ];
 
 export function showClothMatching({ actions, button, pass }) {

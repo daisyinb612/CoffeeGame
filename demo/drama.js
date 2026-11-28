@@ -1,5 +1,5 @@
 import { checkpoints } from "./story.js?v=hannahl-integration";
-import { showCleanup } from "./cleanup-game.js?v=return-assets-3";
+import { showCleanup } from "./cleanup-game.js?v=cloth-hq-3";
 import { showCleanupDiscovery } from "./cleanup-discovery.js?v=discovery-toolbar-2";
 import { showServiceTray } from "./service-tray.js?v=physical-serving-2";
 import { showHandlePractice } from "./handle-practice.js?v=distribution-flow";
