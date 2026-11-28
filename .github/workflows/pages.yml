@@ -16,15 +16,26 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v7
-        with:
-          lfs: true
-      - name: Assemble the static lesson with its original recording
+      - name: Assemble the static lesson
+        env:
+          LESSON_VIDEO_URL: https://innojudge.ecnu.edu.cn/skill/public/18979/v/BQhqHSRvs56OfkVcbY5Nzrj1y6jxvr_H.mp4
         run: |
           set -euo pipefail
+          git lfs pull --include='demo/media/*.mp4' --exclude=''
           mkdir -p _site
           rsync -a --exclude='*.py' --exclude='*.md' demo/ _site/
-          cp 'source/冰美式第一人称视频.MP4' _site/media/story-original.mp4
-          test "$(wc -c < _site/media/story-original.mp4)" -gt 1000000
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from html import escape
+
+          page = Path('_site/index.html')
+          html = page.read_text()
+          source = 'src="media/story-original.mp4?v=971ed4cb"'
+          assert html.count(source) == 1, 'Expected one local lesson video source'
+          url = escape(os.environ['LESSON_VIDEO_URL'], quote=True)
+          page.write_text(html.replace(source, f'src="{url}"'))
+          PY
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
