@@ -1,0 +1,44 @@
+name: Deploy coffee lesson
+
+on:
+  push:
+    branches: [showdemo]
+  workflow_dispatch:
+
+concurrency:
+  group: coffee-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: true
+      - name: Assemble the static lesson with its original recording
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          rsync -a --exclude='*.py' --exclude='*.md' demo/ _site/
+          cp 'source/冰美式第一人称视频.MP4' _site/media/story-original.mp4
+          test "$(wc -c < _site/media/story-original.mp4)" -gt 1000000
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.publish.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: publish
+        uses: actions/deploy-pages@v5

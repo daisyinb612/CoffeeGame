@@ -5,7 +5,7 @@
 先安装 Git LFS 和 Python 3。第一次在电脑上打开 V1，复制以下命令。
 
 ```sh
-git clone --branch codex/interactive-coffee-demo https://github.com/daisyinb612/CoffeeGame.git
+git clone --branch showdemo https://github.com/daisyinb612/CoffeeGame.git
 cd CoffeeGame
 git lfs install --local
 git lfs pull
@@ -24,7 +24,7 @@ python3 demo/serve.py
 python3 demo/serve.py --host 0.0.0.0
 ```
 
-在手机浏览器访问电脑的局域网 IP，端口用 `8765`，例如 `http://192.168.1.23:8765/`。短剧使用 H.264/AAC 竖屏版，并沿用原片的关卡和字幕时间。普通局域网 HTTP 下，第 15 关可口头练习后继续。要使用录音和回听，需要通过 HTTPS 访问并允许麦克风权限。
+在手机浏览器访问电脑的局域网 IP，端口用 `8765`，例如 `http://192.168.1.23:8765/`。短剧播放 1728 × 3072 的 HEVC 原片，浏览器和设备需要支持 HEVC 解码。普通局域网 HTTP 下，第 15 关可口头练习后继续。要使用录音和回听，需要通过 HTTPS 访问并允许麦克风权限。
 
 ## V1 内容
 

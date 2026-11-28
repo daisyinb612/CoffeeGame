@@ -25,7 +25,7 @@ def main():
     media = ROOT / "media"
     media.mkdir(exist_ok=True)
     if args.story:
-        ffmpeg("-ss", 7.5, "-i", source, "-frames:v", "1", "-vf", "scale=540:-2",
+        ffmpeg("-ss", 7.5, "-i", source, "-frames:v", "1",
                "-q:v", "2", media / "story-full.jpg")
         return
 

@@ -8,9 +8,6 @@ from urllib.parse import urlsplit
 
 from build_media import DEFAULT_SOURCE, ROOT
 
-DEFAULT_PLAYBACK = ROOT / "media" / "story-full.mp4"
-
-
 class DemoHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
@@ -18,9 +15,7 @@ class DemoHandler(SimpleHTTPRequestHandler):
     def send_head(self):
         self.video_bytes = None
         path = urlsplit(self.path).path
-        if path == "/media/story-full.mp4":
-            video = self.server.playback
-        elif path == "/media/story-original.mp4":
+        if path == "/media/story-original.mp4":
             video = self.server.source
         else:
             return super().send_head()
@@ -89,10 +84,9 @@ def main():
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--source", type=Path, help="Override the lesson recording")
     args = parser.parse_args()
-    playback = (args.source or DEFAULT_PLAYBACK).resolve(strict=True)
+    source = (args.source or DEFAULT_SOURCE).resolve(strict=True)
     with ThreadingHTTPServer((args.host, args.port), DemoHandler) as server:
-        server.source = playback if args.source else DEFAULT_SOURCE
-        server.playback = playback
+        server.source = source
         host = "127.0.0.1" if args.host == "0.0.0.0" else args.host
         print(f"http://{host}:{server.server_port}/", flush=True)
         try:
