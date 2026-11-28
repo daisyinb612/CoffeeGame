@@ -7,6 +7,10 @@ import { showHandlePractice } from "./handle-practice.js?v=distribution-flow";
 const get = (id) => document.getElementById(id);
 const stage = get("stage");
 const film = get("film");
+const loading = get("loading");
+const loadingTitle = get("loading-title");
+const loadingBar = get("loading-bar");
+const loadingDetail = get("loading-detail");
 const speaker = get("speaker");
 const line = get("line");
 const actions = get("actions");
@@ -55,10 +59,43 @@ function updateCaptions() {
 
 function mode(value) {
   state = value;
+  loading.hidden = true;
   stage.dataset.mode = value === "playing" ? "playing" : "dialogue";
   delete stage.dataset.activity;
   pause.hidden = sound.hidden = value !== "playing";
   updateCaptions();
+}
+
+function updateBufferProgress() {
+  if (loading.hidden || state !== "playing") return;
+  const position = film.currentTime;
+  const target = Math.min(5, film.duration - position);
+  loadingBar.removeAttribute("value");
+  loadingDetail.textContent = "正在读取视频…";
+  if (!(target > 0)) return;
+  for (let i = 0; i < film.buffered.length; i++) {
+    if (film.buffered.start(i) <= position && position < film.buffered.end(i)) {
+      const seconds = Math.min(target, film.buffered.end(i) - position);
+      const percent = Math.floor(100 * seconds / target);
+      loadingBar.value = percent;
+      loadingDetail.textContent = `当前片段已缓冲 ${seconds.toFixed(1)} / ${target.toFixed(1)} 秒（${percent}%）`;
+      break;
+    }
+  }
+}
+
+function showBuffering() {
+  if (state !== "playing" || settings.open || film.paused) return;
+  loadingTitle.textContent = "正在缓冲视频";
+  loading.hidden = false;
+  updateBufferProgress();
+}
+
+film.addEventListener("waiting", showBuffering);
+film.addEventListener("progress", updateBufferProgress);
+film.addEventListener("loadedmetadata", updateBufferProgress);
+for (const event of ["playing", "pause", "ended"]) {
+  film.addEventListener(event, () => { loading.hidden = true; });
 }
 
 function play() {
@@ -70,8 +107,15 @@ function play() {
   actions.replaceChildren();
   pause.textContent = "暂停";
   pause.focus({ preventScroll: true });
-  film.play().catch(() => {
-    if (state !== "playing" || settings.open) return;
+  const started = film.play();
+  if (film.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) showBuffering();
+  started.catch(error => {
+    if (state !== "playing" || settings.open || error.name === "AbortError") return;
+    loading.hidden = true;
+    if (film.error || error.name === "NotSupportedError") {
+      showVideoError();
+      return;
+    }
     pause.textContent = "继续播放";
     line.textContent = "点击「继续播放」重试。";
   });
@@ -447,18 +491,18 @@ function finishLesson() {
   actions.replaceChildren(button("再学一遍", start, "primary"));
   actions.firstChild.focus({ preventScroll: true });
 }
-film.onerror = () => {
+function showVideoError() {
   if (state !== "playing") return;
-  line.textContent = "视频暂时无法播放。";
+  mode("error");
+  line.textContent = "视频暂时无法播放，请检查网络，并确认浏览器支持 HEVC 高清视频。";
   actions.replaceChildren(button("重新载入视频", () => {
-    const elapsed = film.currentTime;
-    film.addEventListener("loadedmetadata", () => {
-      film.currentTime = elapsed;
-      play();
-    }, { once: true });
+    const elapsed = film.currentTime || lessonStart;
     film.load();
+    film.currentTime = elapsed;
+    play();
   }));
-};
+}
+film.addEventListener("error", showVideoError);
 pause.onclick = () => {
   if (film.paused) play();
   else {

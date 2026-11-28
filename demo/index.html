@@ -5,20 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#171717">
   <title>冰美式制作 · CoffeeGame</title>
-  <link rel="stylesheet" href="drama.css?v=hannahl-integration">
+  <link rel="stylesheet" href="drama.css?v=buffer-progress-1">
   <link rel="stylesheet" href="cleanup-discovery.css?v=discovery-toolbar-2">
   <link rel="stylesheet" href="return-tools.css?v=return-locations-5">
   <link rel="stylesheet" href="cloth-matching.css?v=cloth-clear-2">
   <link rel="stylesheet" href="service-speech.css?v=recording-click-fix-1">
   <link rel="stylesheet" href="service-tray.css?v=physical-serving-1">
-  <script type="module" src="drama.js?v=combined-cleanup-1"></script>
+  <script type="module" src="drama.js?v=buffer-progress-1"></script>
 </head>
 <body>
   <main class="stage" id="stage" data-mode="dialogue" aria-label="冰美式制作互动教学">
-    <video id="film" poster="media/story-full.jpg?v=full-resolution" playsinline muted preload="metadata" aria-label="完整第一人称实拍">
-      <source src="media/story-original.mp4?v=971ed4cb" type='video/mp4; codecs="hvc1.1.6.L150.B0, mp4a.40.2"'>
+    <video id="film" src="media/story-original.mp4?v=971ed4cb" poster="media/story-full.jpg?v=full-resolution" playsinline muted preload="metadata" aria-label="完整第一人称实拍">
       <track id="caption-track" kind="captions" srclang="zh-CN" label="简体中文" src="captions/story-zh.vtt?v=full-caption-sync">
     </video>
+    <section id="loading" class="loading-screen" aria-labelledby="loading-title">
+      <div class="loading-panel">
+        <h2 id="loading-title" role="status">正在打开课程</h2>
+        <progress id="loading-bar" max="100" aria-labelledby="loading-title"></progress>
+        <p id="loading-detail">正在准备播放器…</p>
+      </div>
+    </section>
     <div id="captions" class="captions" hidden><span></span></div>
     <div class="controls" role="group" aria-label="短剧控制">
       <button id="pause" type="button" hidden>暂停</button>

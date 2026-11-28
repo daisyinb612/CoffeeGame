@@ -31,6 +31,16 @@ body { margin: 0; min-height: 100svh; display: grid; place-items: center; }
   overflow: hidden;
 }
 #film { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+.loading-screen {
+  position: absolute; inset: 0; z-index: 1; display: grid; place-items: center;
+  background: rgb(28 21 17 / 82%); pointer-events: none;
+}
+.loading-panel { width: min(76%, 300px); }
+.loading-panel h2 { margin: 0; font-size: 1.35rem; font-weight: 600; }
+.loading-panel progress {
+  display: block; width: 100%; height: 8px; margin-block: 14px 10px; accent-color: #e1b08a;
+}
+.loading-panel p { margin: 0; color: #f0dbc7; font-size: .94rem; font-variant-numeric: tabular-nums; }
 .scene-overlay {
   position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: end;
   padding: 12px 12px max(12px, env(safe-area-inset-bottom)); pointer-events: none;
