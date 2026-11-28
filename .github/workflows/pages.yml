@@ -28,12 +28,15 @@ jobs:
           import os
           from pathlib import Path
           from html import escape
+          from urllib.parse import urlsplit
 
           page = Path('_site/index.html')
           html = page.read_text()
           source = 'src="media/story-original.mp4?v=971ed4cb"'
           assert html.count(source) == 1, 'Expected one local lesson video source'
           url = escape(os.environ['LESSON_VIDEO_URL'], quote=True)
+          origin = escape(urlsplit(os.environ['LESSON_VIDEO_URL']).netloc, quote=True)
+          html = html.replace('<head>', f'<head>\n  <link rel="preconnect" href="https://{origin}">')
           page.write_text(html.replace(source, f'src="{url}"'))
           PY
       - uses: actions/upload-pages-artifact@v5

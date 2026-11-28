@@ -458,9 +458,15 @@ settings.addEventListener("close", () => {
   }
 });
 
+function seekToLessonStart() {
+  // Assigning currentTime a second time can restart an in-flight seek.
+  if (Math.abs(film.currentTime - lessonStart) > 0.03) film.currentTime = lessonStart;
+}
+
 function start() {
   next = 0;
-  film.currentTime = lessonStart;
+  film.preload = "auto";
+  seekToLessonStart();
   play();
 }
 
@@ -533,3 +539,15 @@ mode("ready");
 speaker.textContent = "做一杯冰美式";
 line.textContent = "先看看做冰美式要准备什么，再一起做一杯。";
 actions.replaceChildren(button("开始学习", start, "primary"));
+
+// Keep the user gesture for play(), but prepare the opening frames while the welcome screen is open.
+if (!navigator.connection?.saveData) {
+  film.preload = "auto";
+  if (film.readyState >= HTMLMediaElement.HAVE_METADATA) {
+    seekToLessonStart();
+  } else {
+    film.addEventListener("loadedmetadata", () => {
+      if (state === "ready") seekToLessonStart();
+    }, { once: true });
+  }
+}
