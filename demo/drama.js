@@ -10,6 +10,7 @@ const film = get("film");
 const loading = get("loading");
 const loadingTitle = get("loading-title");
 const loadingBar = get("loading-bar");
+const loadingPercent = get("loading-percent");
 const loadingDetail = get("loading-detail");
 const speaker = get("speaker");
 const line = get("line");
@@ -63,7 +64,10 @@ function mode(value) {
   state = value;
   loading.hidden = value !== "ready";
   get("overview-start").hidden = value !== "ready";
-  get("loading-status").hidden = value === "ready";
+  if (value === "ready") {
+    loadingTitle.textContent = "开播缓冲";
+    updateBufferProgress();
+  }
   stage.dataset.mode = value === "playing" ? "playing" : "dialogue";
   delete stage.dataset.activity;
   pause.hidden = sound.hidden = value !== "playing";
@@ -71,21 +75,28 @@ function mode(value) {
 }
 
 function updateBufferProgress() {
-  if (loading.hidden || state !== "playing") return;
-  const position = film.currentTime;
+  if (loading.hidden) return;
+  const position = state === "ready" ? lessonStart : film.currentTime;
   const target = Math.min(5, film.duration - position);
-  loadingBar.removeAttribute("value");
-  loadingDetail.textContent = "正在读取视频…";
-  if (!(target > 0)) return;
-  for (let i = 0; i < film.buffered.length; i++) {
-    if (film.buffered.start(i) <= position && position < film.buffered.end(i)) {
-      const seconds = Math.min(target, film.buffered.end(i) - position);
-      const percent = Math.floor(100 * seconds / target);
-      loadingBar.value = percent;
-      loadingDetail.textContent = `当前片段已缓冲 ${seconds.toFixed(1)} / ${target.toFixed(1)} 秒（${percent}%）`;
+  if (!(target > 0)) {
+    loadingBar.removeAttribute("value");
+    loadingPercent.textContent = "";
+    loadingDetail.textContent = "正在连接视频…";
+    return;
+  }
+
+  let seconds = 0;
+  const ranges = film.buffered;
+  for (let i = 0; i < ranges.length; i++) {
+    if (ranges.start(i) <= position && ranges.end(i) > position) {
+      seconds = Math.min(target, ranges.end(i) - position);
       break;
     }
   }
+  const percent = Math.floor(100 * seconds / target);
+  loadingBar.value = percent;
+  loadingPercent.textContent = `${percent}%`;
+  loadingDetail.textContent = `当前片段已缓冲 ${seconds.toFixed(1)} / ${target.toFixed(1)} 秒`;
 }
 
 function showBuffering() {
@@ -103,8 +114,9 @@ function showBuffering() {
 }
 
 film.addEventListener("waiting", showBuffering);
-film.addEventListener("progress", updateBufferProgress);
-film.addEventListener("loadedmetadata", updateBufferProgress);
+for (const event of ["progress", "loadedmetadata", "seeked", "canplay"]) {
+  film.addEventListener(event, updateBufferProgress);
+}
 for (const event of ["playing", "pause", "ended"]) {
   film.addEventListener(event, () => { if (state !== "ready") loading.hidden = true; });
 }

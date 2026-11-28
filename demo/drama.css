@@ -53,8 +53,11 @@ body { margin: 0; min-height: 100svh; display: grid; place-items: center; }
 #overview-phases li[aria-current="step"]::before { content: "▸"; }
 .level-range { margin-inline-start: auto; }
 #overview-start { width: 100%; background: #f3d6b7; color: var(--ink); border: 0; font-weight: 650; }
+#loading-status { margin-top: 12px; }
+.loading-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 #loading-title { margin: 0; font-size: .95rem; }
-.loading-panel progress { display: block; width: 100%; height: 7px; margin-block: 6px; accent-color: #e1b08a; }
+#loading-percent { color: #ffdbaf; font-weight: 700; font-variant-numeric: tabular-nums; }
+.loading-panel progress { display: block; width: 100%; height: 14px; margin-block: 2px; accent-color: #f4bc82; }
 #loading-detail { font-variant-numeric: tabular-nums; }
 .scene-overlay {
   position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: end;
@@ -794,3 +797,8 @@ mix-stir-game[data-phase="stir"] .mix-gesture-dot { animation-play-state: runnin
   .mix-tap-dot, .mix-gesture-dot { animation: none; }
 }
 mix-stir-game[data-phase="pour"] .mix-arena::after { opacity: .72; }
+
+@media (max-height: 620px) {
+  #overview-phases li { padding-block: 2px; }
+  .overview-card { margin-block: 9px; padding-block: 9px; }
+}
